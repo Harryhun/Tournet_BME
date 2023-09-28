@@ -8,16 +8,19 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/hello_tourist" />
+
     <EditText
+        android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
         android:gravity="center"
-        android:text="@string/input"/>
+        android:singleLine="true"
+        android:text="@string/input" />
 
     <LinearLayout
         android:layout_width="match_parent"
