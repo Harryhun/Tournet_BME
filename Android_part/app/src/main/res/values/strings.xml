@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">App_frontend</string>
+    <string name="hello_tourist">Hello Tourist!</string>
+    <string name="go">Let\'s go!</string>
+    <string name="exit">Exit</string>
+    <string name="input">You can type here if im not mistaken..</string>
 </resources>
