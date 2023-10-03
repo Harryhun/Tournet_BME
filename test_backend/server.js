@@ -1,25 +1,41 @@
-const app = require('express');
-const server = require('http').createServer(app);
+const express = require('express');
+const app = express();
 
-const io = require('socket.io')(server);
+const auth = require('basic-auth');
 const fs = require('fs');
 
-io.on('connection', (socket) => {
-    console.log("Client Connected.");
+console.log("Server started!")
 
-    socket.on('sendData', (data) => {
-        fs.appendFile('database.txt', '\n' + data, (err) => {});
+app.use(express.text());
+
+app.post('/sendData', (req, res) => {
+    user = auth(req);
+    if(user)
+    {
+        fs.appendFile('database.txt', '\n' + req.body, (err) => {});
         console.log("Data recieved!");
-    })
-
-    socket.on('requestData', () => {
-        fs.readFile('database.txt', 'utf-8' ,(err, data) => {
-            var dataArray = data.split('\n');
-            socket.emit("serverDataReply",dataArray[dataArray.length-1]);
-        });
-        console.log("Data sent!");
-    }) //utolsó sort visszadja az 'adatbázisból'
-
+        res.send("OK.");
+    }
+    else
+    {
+        res.status(403).send('Access denied.');
+    }
 })
 
-server.listen(3000);
+app.get('/requestData', (req, res) => {
+    user = auth(req);
+    if(user)
+    {
+        fs.readFile('database.txt', 'utf-8' ,(err, data) => {
+            var dataArray = data.split('\n');
+            res.send(dataArray[dataArray.length-1]);
+        });
+        console.log("Data sent!");
+    }
+    else
+    {
+        res.status(403).send('Access denied.');
+    }
+}) //utolsó sort visszadja az 'adatbázisból'
+
+app.listen(3000);
