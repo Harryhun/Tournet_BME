@@ -2,6 +2,14 @@
     <string name="app_name">App_frontend</string>
     <string name="hello_tourist">Hello Tourist!</string>
     <string name="go">Send</string>
-    <string name="exit">Recieve</string>
+    <string name="exit">Receive</string>
     <string name="input">You can type here if im not mistaken..</string>
+    <string name="please_log_in_to_your_account">Please log in to your account</string>
+    <string name="email">Email:</string>
+    <string name="password">Password:</string>
+    <string name="username">Username:</string>
+    <string name="login">Login</string>
+    <string name="forgotPassword">Forgot password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
