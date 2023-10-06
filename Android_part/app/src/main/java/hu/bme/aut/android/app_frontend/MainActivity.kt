@@ -17,11 +17,14 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val client = OkHttpClient();
         val url = "http://10.0.2.2:3000";
+
 
 
 

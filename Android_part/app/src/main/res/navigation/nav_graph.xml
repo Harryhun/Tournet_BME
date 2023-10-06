@@ -22,7 +22,7 @@
         android:name="hu.bme.aut.android.app_frontend.StartMenuFragment"
         android:label="fragment_start_menu"
         tools:layout="@layout/fragment_start_menu" />
-    <fragment
+    <activity
         android:id="@+id/password_send"
         android:name="hu.bme.aut.android.app_frontend.Password_send"
         android:label="fragment_password_send"
