@@ -13,10 +13,19 @@
         <action
             android:id="@+id/action_loginFragment_to_startMenuFragment"
             app:destination="@id/startMenuFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_password_send"
+            app:destination="@id/password_send" />
     </fragment>
     <fragment
         android:id="@+id/startMenuFragment"
         android:name="hu.bme.aut.android.app_frontend.StartMenuFragment"
         android:label="fragment_start_menu"
         tools:layout="@layout/fragment_start_menu" />
+    <activity
+        android:id="@+id/password_send"
+        android:name="hu.bme.aut.android.app_frontend.Password_send"
+        android:label="fragment_password_send"
+        tools:layout="@layout/fragment_password_send" />
+
 </navigation>
