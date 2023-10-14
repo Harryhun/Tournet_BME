@@ -83,24 +83,27 @@
 
             <Button
                 android:id="@+id/btnLogin"
-                android:layout_width="0dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
+                android:layout_gravity="center"
                 android:backgroundTint="@color/black"
                 android:alpha="0.6"
                 android:text="@string/login" />
             <Button
                 android:id="@+id/btnSingUp"
-                android:layout_width="0dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
+                android:layout_gravity="center"
                 android:backgroundTint="@color/black"
                 android:alpha="0.6"
                 android:text="@string/sing_up" />
             <Button
                 android:id="@+id/btnForgotPassword"
-                android:layout_width="0dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="0.8"
                 android:backgroundTint="@color/black"
                 android:alpha="0.6"
