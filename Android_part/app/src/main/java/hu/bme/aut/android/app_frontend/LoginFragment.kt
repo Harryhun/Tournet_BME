@@ -6,25 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import hu.bme.aut.android.app_frontend.databinding.ActivityMainBinding.inflate
 import hu.bme.aut.android.app_frontend.databinding.FragmentLoginBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        binding = FragmentLoginBinding.inflate(layoutInflater)
     }
+
+
     private lateinit var binding : FragmentLoginBinding
 
     override fun onCreateView(
@@ -32,7 +25,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        binding=FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -40,33 +34,28 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_startMenuFragment)
+            if(binding.etUserName.text.toString().isEmpty()) {
+                binding.etPassword.requestFocus()
+                binding.etPassword.error = "Please enter your username"
+            }
+            else if(binding.etEmailAddress.text.toString().isEmpty()) {
+                binding.etEmailAddress.requestFocus()
+                binding.etEmailAddress.error = "Please enter your email address"
+            }
+            else if(binding.etPassword.text.toString().isEmpty()) {
+                binding.etPassword.requestFocus()
+                binding.etPassword.error = "Please enter your password"
+            }
+            else {
+                findNavController().navigate(R.id.action_loginFragment_to_startMenuFragment)
+            }
         }
         binding.btnForgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_password_send)
         }
+        binding.btnSingUp.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_registration)
+        }
     }
 
-
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
