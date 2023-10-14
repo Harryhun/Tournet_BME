@@ -15,4 +15,6 @@
     <string name="sing_up">Sing Up</string>
     <string name="send_password_to_email_address">Send Password to email address</string>
     <string name="please_write_in_your_username_and_email_address">Please write in your Username and email address</string>
+    <string name="register">Register</string>
+    <string name="password_again">Password again</string>
 </resources>

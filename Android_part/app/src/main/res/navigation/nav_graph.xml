@@ -29,11 +29,19 @@
         android:id="@+id/password_send"
         android:name="hu.bme.aut.android.app_frontend.ForgotPassword"
         android:label="fragment_password_send"
-        tools:layout="@layout/fragment_forgot_password" />
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_password_send_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registration"
         android:name="hu.bme.aut.android.app_frontend.Registration"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" />
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registration_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>

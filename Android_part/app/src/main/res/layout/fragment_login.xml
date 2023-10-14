@@ -87,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:layout_gravity="center"
+                android:fontFamily="@font/font_login"
                 android:backgroundTint="@color/black"
                 android:alpha="0.6"
                 android:text="@string/login" />
@@ -96,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:layout_gravity="center"
+                android:fontFamily="@font/font_login"
                 android:backgroundTint="@color/black"
                 android:alpha="0.6"
                 android:text="@string/sing_up" />
@@ -104,6 +106,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/font_login"
                 android:layout_weight="0.8"
                 android:backgroundTint="@color/black"
                 android:alpha="0.6"
