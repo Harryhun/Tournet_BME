@@ -16,16 +16,24 @@
         <action
             android:id="@+id/action_loginFragment_to_password_send"
             app:destination="@id/password_send" />
+        <action
+            android:id="@+id/action_loginFragment_to_registration"
+            app:destination="@id/registration" />
     </fragment>
     <fragment
         android:id="@+id/startMenuFragment"
         android:name="hu.bme.aut.android.app_frontend.StartMenuFragment"
         android:label="fragment_start_menu"
         tools:layout="@layout/fragment_start_menu" />
-    <activity
+    <fragment
         android:id="@+id/password_send"
-        android:name="hu.bme.aut.android.app_frontend.Password_send"
+        android:name="hu.bme.aut.android.app_frontend.ForgotPassword"
         android:label="fragment_password_send"
-        tools:layout="@layout/fragment_password_send" />
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/registration"
+        android:name="hu.bme.aut.android.app_frontend.Registration"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
 
 </navigation>
