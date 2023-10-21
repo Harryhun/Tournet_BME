@@ -3,6 +3,10 @@
     "basic-auth": "^2.0.1",
     "crypto": "^1.0.1",
     "express": "^4.18.2",
-    "nodemailer": "^6.9.6"
+    "mysql": "^2.18.1",
+    "mysql2": "^3.6.2",
+    "nodemailer": "^6.9.6",
+    "sequelize": "^6.33.0",
+    "sequelize-auto": "^0.8.8"
   }
 }

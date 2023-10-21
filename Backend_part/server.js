@@ -1,139 +1,184 @@
 const express = require('express')
 const app = express()
-
 const auth = require('basic-auth')
+const { Sequelize } = require('sequelize')
+
+app.use(express.json())
+
+const databaseConn = new Sequelize('tournet', 'admin', 'pass', {
+    host: 'localhost',
+    dialect: 'mysql'
+})
+
+let initModels = require("./models/init-models")
+const db = initModels(databaseConn)
 
 console.log("Server started!")
 
 app.post('/login', (req, res) => {
-
-    user = auth(req)
-    if(user)
-    {   
-        //---ADATBÁZIS SELECT (Sequelize?)---
-        //const userId = SELECT userID FROM user WHERE req.userName = name AND req.password = password
-        
-            //SIKERES (.then)
-            res.json([{
-                status: 1, //Sikeres
-                userId: userId 
-            }])
-
-            //SIKERTELEN (.catch)
-            res.json([{
-                status: 2, //Sikertelen
-                userId: null
-            }])
-
-    }
-    else
-    {
-        res.status(403).send("Access denied.")
-    }
-
+    login(req, res)
 })
 
 app.post('/signUp', (req, res) => {
+    signUp(req, res)
+})
 
+app.post('/forgotPassword', (req, res) => {
+    forgotPassword(req, res)
+})
+
+//! EMPTY QUERY RESULT ERROR HANDLING
+
+async function login(req, res)
+{
     user = auth(req)
     if(user)
-    {   
-        //---ADATBÁZIS INSERT (Sequelize?)---
-        //INSERT INTO user VALUES(req.userName, req.password, req.emailAddress, 1)
-        //const userId = SELECT userID FROM user WHERE req.userName = name AND req.password = password
-        
-            //SIKERES (.then)
+    {  
+        db.user.findOne({
+            where: {
+                name: req.body.userName,
+                password: req.body.password
+            }
+        })
+        .then((queryRes) => 
+        {
             res.json([{
                 status: 1, //Sikeres
-                userId: userId 
+                userId: queryRes.dataValues.id
             }])
-
-            //SIKERTELEN (.catch)
+        })
+        .catch((err) =>
+        {
             res.json([{
                 status: 2, //Sikertelen
                 userId: null
             }])
-
-    }
-    else
-    {
-        res.status(403).send("Access denied.")
-    }
-
-})
-
-app.post('/forgotPassword', (req, res) => {
-
-    user = auth(req)
-    if(user)
-    {        
-        //---ADATBÁZIS SELECT (Sequelize?)---
-        //const userId = SELECT userID FROM user WHERE req.emailAddress = emailAddress
-
-            //SIKERES (.then)
-            res.json([{
-                status: 1, //Sikeres
-            }])
-        
-            //SIKERTELEN (.catch)
-            res.json([{
-                status: 2, //Sikertelen
-            }])
-
-        //---ÚJ TEMP JELSZÓ LÉTREHOZÁSA (crypto)---
-        const crypto = require('crypto')
-        const newPass = crypto.randomBytes(5).toString('hex') //Létrehoz egy random 10 számból/hexa betűből álló temp 'jelszót'
-        
-        //---ADATBÁZIS UPDATE (Sequelize?)---
-        //UPDATE user SET password = newPass WHERE userId = id
-
-            //SIKERES (.then)
-            res.json([{
-                status: 1, //Sikeres
-            }])
-
-            //SIKERTELEN (.catch)
-            res.json([{
-                status: 2, //Sikertelen
-            }])
-
-        //---EMAIL KÜLDÉS (Nodemailer)--- 
-        const mailer = require('nodemailer')
-        const mailSender = mailer.createTransport(
-            {
-                service: 'gmail',
-                auth: {
-                    user: 'TournetBMEPasswordRecovery@gmail.com', //TODO: létrehozni
-                    pass: 'tournetPass123'
-                }
-            })
-        const content = {
-            from: 'TournetBMEPasswordRecovery@gmail.com',
-            to: req.emailAddress,
-            subject: 'TournetBME - Jelszó helyreállítás',
-            text: 'Az új jelszavad: ' + newPass + "\n\nKérjük, hogy a fiókod biztonsága érdekében a következő bejelentkezésnél állíts új jelszót a profilbeállításoknál!"
-        };
-        mailSender.sendMail(content, (err, data) => {
-            if(err)
-            {
-                res.json([{
-                    status: 2, //Sikertelen
-                }])
-            }
-            else
-            {
-                res.json([{
-                    status: 1, //Sikeres
-                }])
-            }
         })
     }
     else
     {
         res.status(403).send("Access denied.")
     }
+}
 
-})
+async function signUp(req, res)
+{
+    user = auth(req)
+    if(user)
+    {           
+        db.user.create({
+            name: req.body.userName,
+            password: req.body.password,
+            email: req.body.emailAddress,
+            roleId: 3
+        })
+        .then((queryRes) => {
+            db.user.findOne({
+                where: {
+                    name: req.body.userName,
+                    password: req.body.password
+                }
+            })
+            .then((queryRes) => 
+            {
+                res.json([{
+                    status: 1, //Sikeres
+                    userId: queryRes.dataValues.id
+                }])
+            })
+            .catch((err) =>
+            {
+                res.json([{
+                    status: 2, //Sikertelen
+                    userId: null
+                }])
+            })
+        })
+        .catch((err) => {
+            res.json([{
+                status: 2, //Sikertelen
+                userId: null
+            }])
+        })
+    }
+    else
+    {
+        res.status(403).send("Access denied.")
+    }
+}
+
+async function forgotPassword(req, res)
+{
+    user = auth(req)
+    if(user)
+    {        
+        db.user.findOne({
+            where: {
+                email: req.body.emailAddress,
+            }
+        })
+        .then((queryRes) => 
+        {
+            //---ÚJ TEMP JELSZÓ LÉTREHOZÁSA---
+            const crypto = require('crypto')
+            const newPass = crypto.randomBytes(5).toString('hex') //Létrehoz egy random 10 számból/hexa betűből álló temp 'jelszót'
+            db.user.update({password: newPass}, {
+                    where: {
+                    email: req.body.emailAddress
+                }}
+            )
+            .then((queryRes2) => {
+                //---EMAIL KÜLDÉS (Nodemailer)--- 
+                const mailer = require('nodemailer')
+                const mailSender = mailer.createTransport(
+                {
+                    service: 'gmail',
+                    auth: {
+                        user: 'TournetBMEPassRecovery@gmail.com',
+                        pass: 'afeeqdjeczemdkzs'
+                    }
+                })
+                const content = {
+                    from: 'TournetBMEPassRecovery@gmail.com',
+                    to: req.body.emailAddress,
+                    subject: 'TournetBME - Jelszó helyreállítás',
+                    text: 'Az új jelszavad: ' + newPass + "\n\nKérjük, hogy a fiókod biztonsága érdekében a következő bejelentkezésnél állíts új jelszót a profilbeállításoknál!"
+                }
+                mailSender.sendMail(content, (err, data) => {
+                    if(err)
+                    {
+                        res.json([{
+                            status: 2, //Sikertelen
+                        }])
+                        console.log(err)
+                    }
+                    else
+                    {
+                        res.json([{
+                            status: 1, //Sikeres
+                        }])
+                    }
+                })   
+            }) 
+            .catch((err) =>
+            {
+                res.json([{
+                    status: 2, //Sikertelen
+                }])
+            })        
+        })
+        .catch((err) =>
+        {
+            res.json([{
+                status: 2, //Sikertelen
+            }])
+        })
+    }
+    else
+    {
+        res.status(403).send("Access denied.")
+    }
+}
 
 app.post('/requestDomains', (req, res) => {
 
