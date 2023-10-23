@@ -20,4 +20,5 @@
     <string name="modify">Modify profile</string>
     <string name="startMenuOptions">Options</string>
     <string name="baranya">Baranya</string>
+    <string name="back_to_start_menu">Back to start menu</string>
 </resources>

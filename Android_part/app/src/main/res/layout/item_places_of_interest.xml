@@ -44,33 +44,15 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/Visited"
         android:layout_width="50dp"
         android:layout_height="50dp"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:id="@+id/VisitedHeart"
         android:layout_gravity="center_vertical"
         android:scaleType="fitXY"
         android:src="@drawable/baranya"
 
         />
 
-
-
-
-    <!--<Button
-        android:id="@+id/bIcon"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:drawableLeft="@drawable/baranya"
-        android:theme="@style/ThemeOverlay.Material3.FloatingActionButton.Primary"
-        >
-        <ImageView
-            android:id="@+id/ivIcon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="8dp"
-            tools:src="@drawable/baranya"/>
-    </Button>
-    -->
 
 </LinearLayout>

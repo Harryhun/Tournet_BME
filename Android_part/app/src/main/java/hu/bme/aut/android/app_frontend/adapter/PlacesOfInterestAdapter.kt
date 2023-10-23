@@ -18,7 +18,7 @@ class PlacesOfInterestAdapter(private val listener: PlacesOfInterestItemClickLis
     override fun onBindViewHolder(holder: PlacesOfInterestViewHolder, position: Int) {
         val placeInterestItem = items[position]
 
-        holder.binding.bIcon.setBackgroundResource(getImageResource(placeInterestItem.name))
+        holder.binding.ivIcon.setBackgroundResource(getImageResource(placeInterestItem.name))
 
     }
     @DrawableRes
@@ -43,5 +43,5 @@ class PlacesOfInterestAdapter(private val listener: PlacesOfInterestItemClickLis
         fun onItemAdded(item: PlacesOfInterestItem)
     }
 
-    inner class PlacesOfInterestViewHolder(val binding: Item) : RecyclerView.ViewHolder(binding.root)
+    inner class PlacesOfInterestViewHolder(val binding: ItemPlacesOfInterestBinding) : RecyclerView.ViewHolder(binding.root)
 }
