@@ -35,8 +35,8 @@ class LoginFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener {
             if(binding.etUserName.text.toString().isEmpty()) {
-                binding.etPassword.requestFocus()
-                binding.etPassword.error = "Please enter your username"
+                binding.etUserName.requestFocus()
+                binding.etUserName.error = "Please enter your username"
             }
             else if(binding.etEmailAddress.text.toString().isEmpty()) {
                 binding.etEmailAddress.requestFocus()
