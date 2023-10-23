@@ -29,9 +29,9 @@ class StartMenuAdapter(private val listener: StartMenuItemClickListener) :
         notifyItemInserted(items.size - 1)
     }
 
-    fun update(shoppingItems: List<StartMenuItem>) {
+    fun update(regions: List<StartMenuItem>) {
         items.clear()
-        items.addAll(shoppingItems)
+        items.addAll(regions)
         notifyDataSetChanged()
     }
 
