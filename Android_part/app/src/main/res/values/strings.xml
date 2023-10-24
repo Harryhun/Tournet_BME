@@ -21,4 +21,7 @@
     <string name="startMenuOptions">Options</string>
     <string name="baranya">Baranya</string>
     <string name="back_to_start_menu">Back to start menu</string>
+    <string name="spot">Spot</string>
+    <string name="spot2">SPOT</string>
+    <string name="descrition">descrition</string>
 </resources>

@@ -24,36 +24,36 @@ class PlacesOfInterestActivity : AppCompatActivity(), PlacesOfInterestAdapter.Pl
         database = PlacesOfInterestListDatabase.getDatabase(this)
         initRecyclerView()
     }
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        val toolbarMenu: Menu = binding.toolbar.menu
-//        menuInflater.inflate(R.menu.places_interest, toolbarMenu)
-//        for (i in 0 until toolbarMenu.size()) {
-//            val menuItem: MenuItem = toolbarMenu.getItem(i)
-//            menuItem.PlacesOfInterestItemClickListener { item -> onOptionsItemSelected(item) }
-//            if (menuItem.hasSubMenu()) {
-//                val subMenu: SubMenu = menuItem.subMenu!!
-//                for (j in 0 until subMenu.size()) {
-//                    subMenu.getItem(j)
-//                        .PlacesOfInterestItemClickListener { item -> onOptionsItemSelected(item) }
-//                }
-//            }
-//        }
-//        return super.onCreateOptionsMenu(menu)
-//    }
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.menu_profile -> {
-//                true
-//            }
-//            R.id.menu_modify -> {
-//                true
-//            }
-//            R.id.menu_exit -> {
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
+////    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+////        val toolbarMenu: Menu = binding.toolbar.menu
+////        menuInflater.inflate(R.menu.places_interest, toolbarMenu)
+////        for (i in 0 until toolbarMenu.size()) {
+////            val menuItem: MenuItem = toolbarMenu.getItem(i)
+////            menuItem.PlacesOfInterestItemClickListener { item -> onOptionsItemSelected(item) }
+////            if (menuItem.hasSubMenu()) {
+////                val subMenu: SubMenu = menuItem.subMenu!!
+////                for (j in 0 until subMenu.size()) {
+////                    subMenu.getItem(j)
+////                        .PlacesOfInterestItemClickListener { item -> onOptionsItemSelected(item) }
+////                }
+////            }
+////        }
+////        return super.onCreateOptionsMenu(menu)
+////    }
+////    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+////        return when (item.itemId) {
+////            R.id.menu_profile -> {
+////                true
+////            }
+////            R.id.menu_modify -> {
+////                true
+////            }
+////            R.id.menu_exit -> {
+////                true
+////            }
+////            else -> super.onOptionsItemSelected(item)
+////        }
+////    }
 
     private fun initRecyclerView() {
         adapter = PlacesOfInterestAdapter(this)

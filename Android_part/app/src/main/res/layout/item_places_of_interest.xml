@@ -50,7 +50,7 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_gravity="center_vertical"
         android:scaleType="fitXY"
-        android:src="@drawable/baranya"
+        android:src="@drawable/full_heart"
 
         />
 

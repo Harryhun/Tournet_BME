@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".touristSpot">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightBlue"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rvTouristSpot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
+
+    <TextView
+        android:id="@+id/tvTouristSpotName"
+        android:layout_width="99dp"
+        android:layout_height="75dp"
+        android:fontFamily="@font/font_login"
+        android:gravity="center"
+        android:text="@string/spot2"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageView
+        android:id="@+id/ivTouristSpot"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/baranya"
+        tools:ignore="MissingConstraints"
+
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="111dp" />
+
+    <TextView
+        android:id="@+id/tvTouristSpotNamesmall"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:fontFamily="@font/font_login"
+        android:gravity="center"
+        android:text="@string/spot2"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="390dp" />
+
+    <TextView
+        android:id="@+id/tvTouristSpotdescription"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fontFamily="@font/font_login"
+        android:gravity="center"
+        android:text="@string/descrition"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="465dp" />
+
+
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
