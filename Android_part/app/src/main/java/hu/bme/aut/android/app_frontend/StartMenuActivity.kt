@@ -11,6 +11,7 @@ import android.view.SubMenu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.app_frontend.adapter.StartMenuAdapter
 import hu.bme.aut.android.app_frontend.data.StartMenuItem
@@ -49,12 +50,15 @@ class StartMenuActivity : AppCompatActivity(), StartMenuAdapter.StartMenuItemCli
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_profile -> {
+               // findNavController(R.id.nav_host_fragment).navigate(R.id.placesOfInterestActivity)
                 true
             }
             R.id.menu_modify -> {
+               // findNavController(R.id.nav_host_fragment).navigate(R.id.placesOfInterestActivity)
                 true
             }
             R.id.menu_exit -> {
+               // findNavController(R.id.nav_host_fragment).navigate(R.id.placesOfInterestActivity)
                 true
             }
             else -> super.onOptionsItemSelected(item)
