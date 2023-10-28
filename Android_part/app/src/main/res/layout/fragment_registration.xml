@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:background="@drawable/login_background"
+    tools:context=".Registration">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="12dp"
+        android:layout_marginVertical="0dp"
+        android:layout_weight="7.5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/font_login"
+            android:textSize="20sp"
+            android:text="@string/please_write_in_your_username_and_email_address" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:textSize="16sp"
+            android:text="@string/username" />
+
+        <EditText
+            android:id="@+id/etUserNameToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="20"
+            android:lines="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:textSize="16sp"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/etEmailAddressToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLength="20"
+            android:lines="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:textSize="16sp"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@+id/etPasswordToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:lines="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:textSize="16sp"
+            android:text="@string/password_again" />
+
+        <EditText
+            android:id="@+id/etPasswordToRegisterAgain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:lines="1"/>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:textSize="16sp"
+            android:backgroundTint="@color/black"
+            android:alpha="0.6"
+            android:text="@string/register" />
+
+    </LinearLayout>
+
+</LinearLayout>
