@@ -1,8 +1,10 @@
 package hu.bme.aut.android.app_frontend.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.app_frontend.R
 import hu.bme.aut.android.app_frontend.data.StartMenuItem
@@ -18,6 +20,9 @@ class StartMenuAdapter(private val listener: StartMenuItemClickListener) :
         val startMenuItem = items[position]
 
         holder.binding.bIcon.setBackgroundResource(getImageResource(startMenuItem.name))
+        holder.binding.bIcon.setOnClickListener{
+            
+        }
 
     }
     @DrawableRes

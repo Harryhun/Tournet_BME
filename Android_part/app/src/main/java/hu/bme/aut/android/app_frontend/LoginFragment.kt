@@ -51,10 +51,10 @@ class LoginFragment : Fragment() {
             }
         }
         binding.btnForgotPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_password_send)
+            findNavController().navigate(R.id.action_loginFragment_to_passwordSendFragment)
         }
         binding.btnSingUp.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_registration)
+            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
         }
     }
 
