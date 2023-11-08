@@ -14,6 +14,7 @@
 
 
     >
+    tools:context=".PlacesOfInterestFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
