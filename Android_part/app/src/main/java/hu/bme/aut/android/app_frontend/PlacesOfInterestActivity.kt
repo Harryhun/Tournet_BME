@@ -16,6 +16,9 @@ class PlacesOfInterestActivity : AppCompatActivity(), PlacesOfInterestAdapter.Pl
     private lateinit var binding: ActivityPlacesOfInterestBinding
     private lateinit var database: PlacesOfInterestListDatabase
     private lateinit var adapter: PlacesOfInterestAdapter
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacesOfInterestBinding.inflate(layoutInflater)
