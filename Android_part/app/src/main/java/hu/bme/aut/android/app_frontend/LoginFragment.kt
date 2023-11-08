@@ -47,6 +47,9 @@ class LoginFragment : Fragment() {
                 binding.etPassword.error = "Please enter your password"
             }
             else {
+
+                //TODO: internet connection check with AlertDialog
+
                 findNavController().navigate(R.id.action_loginFragment_to_startMenuFragment)
             }
         }
