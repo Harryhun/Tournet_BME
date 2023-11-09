@@ -58,6 +58,10 @@
         <action
             android:id="@+id/action_startMenuFragment_to_placesOfInterestFragment"
             app:destination="@id/placesOfInterestFragment" />
+        <argument
+            android:name="loginPassword"
+            app:argType="string"
+            android:defaultValue="nem_erkezett_meg" />
     </fragment>
 
 </navigation>

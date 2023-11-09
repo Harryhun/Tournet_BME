@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.app_frontend.adapter.StartMenuAdapter
 import hu.bme.aut.android.app_frontend.data.StartMenuItem
@@ -23,6 +24,7 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
     private lateinit var binding: FragmentStartMenuBinding
     private lateinit var database: StartMenuListDatabase
     private lateinit var adapter: StartMenuAdapter
+    val args:StartMenuFragmentArgs by navArgs()//safeArgs
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentStartMenuBinding.inflate(layoutInflater)
@@ -36,6 +38,7 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentStartMenuBinding.inflate(inflater, container, false)
+        binding.etPasswordToRegister2.text=args.loginPassword.toString()//safeArgs
         return binding.root
     }
 

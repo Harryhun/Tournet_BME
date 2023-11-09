@@ -47,7 +47,11 @@ class LoginFragment : Fragment() {
                 binding.etPassword.error = "Please enter your password"
             }
             else {
-                findNavController().navigate(R.id.action_loginFragment_to_startMenuFragment)
+
+                //TODO: internet connection check with AlertDialog
+                val action=LoginFragmentDirections.actionLoginFragmentToStartMenuFragment("Mukodik_safeargs")//just Test
+                findNavController().navigate(action)//safeArgs
+                //findNavController().navigate(R.id.action_loginFragment_to_startMenuFragment)
             }
         }
         binding.btnForgotPassword.setOnClickListener {

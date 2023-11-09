@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartMenuFragment">
+    tools:context=".StartMenuFragment"
+    android:background="@drawable/menu_backround2"
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+<!--        android:background="@drawable/toolbar_day"-->
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/lightBlue"/>
+        android:layout_height="60dp"
+        android:background="@drawable/toolbar"
+        />
     </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <!--    Just for testing-->
+    <TextView
+        android:id="@+id/etPasswordToRegister2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        tools:ignore="MissingConstraints"
+         />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStartMenu"
@@ -24,4 +45,4 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/item_menu_start"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

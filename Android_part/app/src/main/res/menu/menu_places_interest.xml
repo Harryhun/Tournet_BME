@@ -3,10 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/places_interest"
-        android:icon="@mipmap/ic_menu_main"
+        android:icon="@drawable/menu_icon3"
         android:gravity="center"
         android:title="@string/back_to_start_menu"
         app:showAsAction="ifRoom">
-
+        <menu>
+            <item
+                android:id="@+id/menu_profile"
+                android:title="@string/profile" />
+            <item
+                android:id="@+id/menu_modify"
+                android:title="@string/modify" />
+            <item
+                android:id="@+id/menu_exit"
+                android:title="@string/exit" />
+        </menu>
     </item>
 </menu>
