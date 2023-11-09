@@ -1,0 +1,29 @@
+#navBar
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: cornflowerblue;
+    top: 0;
+    width: 100%;
+}
+
+.navBarItem
+{
+    float: left;
+}
+
+.navBarItem a
+{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navBarItem a:hover
+{
+    background-color: darkcyan;
+}

@@ -13,6 +13,8 @@ const databaseConn = new Sequelize('tournet', 'admin', 'pass', {
 let initModels = require("./models/init-models")
 const db = initModels(databaseConn)
 
+let fs = require('fs')
+
 console.log("Server started!")
 
 app.post('/login', (req, res) => {
@@ -27,7 +29,9 @@ app.post('/forgotPassword', (req, res) => {
     forgotPassword(req, res)
 })
 
-//! EMPTY QUERY RESULT ERROR HANDLING
+app.post('/requestDomains', (req, res) => {
+    requestDomains(req, res)
+})
 
 async function login(req, res)
 {
@@ -42,17 +46,27 @@ async function login(req, res)
         })
         .then((queryRes) => 
         {
-            res.json([{
-                status: 1, //Sikeres
-                userId: queryRes.dataValues.id
-            }])
+            if(queryRes == null)
+            {
+                res.json({
+                    status: 3, //Üres válasz
+                    userId: null
+                })
+            }
+            else
+            {
+                res.json({
+                    status: 1, //Sikeres
+                    userId: queryRes.dataValues.id
+                })
+            }
         })
         .catch((err) =>
         {
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
                 userId: null
-            }])
+            })
         })
     }
     else
@@ -81,24 +95,24 @@ async function signUp(req, res)
             })
             .then((queryRes) => 
             {
-                res.json([{
+                res.json({
                     status: 1, //Sikeres
                     userId: queryRes.dataValues.id
-                }])
+                })
             })
             .catch((err) =>
             {
-                res.json([{
+                res.json({
                     status: 2, //Sikertelen
                     userId: null
-                }])
+                })
             })
         })
         .catch((err) => {
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
                 userId: null
-            }])
+            })
         })
     }
     else
@@ -119,6 +133,14 @@ async function forgotPassword(req, res)
         })
         .then((queryRes) => 
         {
+            if(queryRes == null)
+            {
+                res.json({
+                    status: 3, //Üres válasz
+                    userId: null
+                })
+                return
+            }
             //---ÚJ TEMP JELSZÓ LÉTREHOZÁSA---
             const crypto = require('crypto')
             const newPass = crypto.randomBytes(5).toString('hex') //Létrehoz egy random 10 számból/hexa betűből álló temp 'jelszót'
@@ -135,7 +157,7 @@ async function forgotPassword(req, res)
                     service: 'gmail',
                     auth: {
                         user: 'TournetBMEPassRecovery@gmail.com',
-                        pass: 'afeeqdjeczemdkzs'
+                        pass: 'afeeqdjeczemdkzs' //! NAGY A BAJ
                     }
                 })
                 const content = {
@@ -147,31 +169,31 @@ async function forgotPassword(req, res)
                 mailSender.sendMail(content, (err, data) => {
                     if(err)
                     {
-                        res.json([{
+                        res.json({
                             status: 2, //Sikertelen
-                        }])
+                        })
                         console.log(err)
                     }
                     else
                     {
-                        res.json([{
+                        res.json({
                             status: 1, //Sikeres
-                        }])
+                        })
                     }
                 })   
             }) 
             .catch((err) =>
             {
-                res.json([{
+                res.json({
                     status: 2, //Sikertelen
-                }])
+                })
             })        
         })
         .catch((err) =>
         {
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
-            }])
+            })
         })
     }
     else
@@ -180,42 +202,51 @@ async function forgotPassword(req, res)
     }
 }
 
-app.post('/requestDomains', (req, res) => {
-
+async function requestDomains(req, res)
+{
     user = auth(req)
     if(user)
-    {   
-        //---ADATBÁZIS SELECT (Sequelize?)---
-        //let domainList = SELECT * FROM domain
-        //!KÉP MEGOLDÁSA (átküldés/referencia)
-        
-            //SIKERES (.then)
+    {
+        db.domain.findAll({
+            attributes:
+            {
+                include: [
+                    [
+                        databaseConn.literal(`(
+                            SELECT source FROM picture
+                            WHERE domain.pictureId = picture.id 
+                        )`),
+                        'pictureName'
+                    ]
+                ]
+            }
+        })
+        .then(queryRes => {
             let domainObjectList = new Array()
-            for(let i = 0; i < domainList.length; i++)
+            for(let i = 0; i < queryRes.length; i++)
             {
                 domainObjectList[i] = {}
-                domainObjectList[i]['name'] = domainList[i].name
-                domainObjectList[i]['rating'] = domainList[i].rating
-                domainObjectList[i]['picture'] = domainList[i].picture
+                domainObjectList[i]['name'] = queryRes[i].dataValues.name
+                domainObjectList[i]['rating'] = queryRes[i].dataValues.rating
+                domainObjectList[i]['picture'] = Buffer(fs.readFileSync('./images/domains/'+queryRes[i].dataValues.pictureName)).toString('base64')
             }
-            res.json([{
+            res.json({
                 status: 1, //Sikeres
-                domains: JSON.stringify(domainObjectList) 
-            }])
-
-            //SIKERTELEN (.catch)
-            res.json([{
+                domains: domainObjectList 
+            })
+        })
+        .catch((err) =>
+        {
+            res.json({
                 status: 2, //Sikertelen
-                domains: null
-            }])
-
+            })
+        })
     }
     else
     {
         res.status(403).send("Access denied.")
     }
-
-})
+}
 
 app.post('/requestPlaces', (req, res) => {
 
@@ -232,16 +263,16 @@ app.post('/requestPlaces', (req, res) => {
                 placeObjectList[i] = {}
                 placeObjectList[i]['name'] = placeList[i].name
             }
-            res.json([{
+            res.json({
                 status: 1, //Sikeres
                 domains: JSON.stringify(placeObjectList) 
-            }])
+            })
 
             //SIKERTELEN (.catch)
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
                 domains: null
-            }])
+            })
 
     }
     else
@@ -276,16 +307,16 @@ app.post('/requestPlaceDetails', (req, res) => {
                 placeObjectList[i]['latitude'] = placeList[i].latitude
                 placeObjectList[i]['longitude'] = placeList[i].longitude
             }
-            res.json([{
+            res.json({
                 status: 1, //Sikeres
                 domains: JSON.stringify(placeObjectList) 
-            }])
+            })
 
             //SIKERTELEN (.catch)
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
                 domains: null
-            }])
+            })
 
     }
     else
@@ -304,14 +335,14 @@ app.post('/recieveSuggestion', (req, res) => {
         //INSERT INTO suggestion VALUES(req.domainId, req.userId, req.suggestionName)
 
             //SIKERES (.then)
-            res.json([{
+            res.json({
                 status: 1, //Sikeres
-            }])
+            })
 
             //SIKERTELEN (.catch)
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
-            }])
+            })
     }
     else
     {
@@ -330,14 +361,14 @@ app.post('/setVisited', (req, res) => {
         //UPDATE place SET visitors = visitors+1 WHERE req.placeId = id //?visitors + 1-hez lehet kell egy extra lekérdezés
 
             //SIKERES (.then)
-            res.json([{
+            res.json({
                 status: 1, //Sikeres
-            }])
+            })
 
             //SIKERTELEN (.catch)
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
-            }])
+            })
     }
     else
     {
@@ -369,14 +400,14 @@ app.post('/setRating', (req, res) => {
         }
 
             //SIKERES (.then)
-            res.json([{
+            res.json({
                 status: 1, //Sikeres
-            }])
+            })
 
             //SIKERTELEN (.catch)
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
-            }])
+            })
     }
     else
     {
@@ -403,14 +434,14 @@ app.post('/profileUpdate', (req, res) => {
         }
         
             //SIKERES (.then)
-            res.json([{
+            res.json({
                 status: 1, //Sikeres
-            }])
+            })
 
             //SIKERTELEN (.catch)
-            res.json([{
+            res.json({
                 status: 2, //Sikertelen
-            }])
+            })
     }
     else
     {

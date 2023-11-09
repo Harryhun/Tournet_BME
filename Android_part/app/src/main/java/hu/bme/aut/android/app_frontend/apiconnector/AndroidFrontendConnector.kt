@@ -32,16 +32,11 @@ class AndroidFrontendConnector {
         queue.take()
         if (result == null)
             return "0";
-        var jArray = JSONArray(result)
-        if (jArray.length() == 1) {
-            var jObject = jArray.getJSONObject(0)
+        var jObject = JSONObject(result)
             if (jObject.getInt("status") != 1) {
                 error_code = true
                 return jObject.getInt("status").toString()
             }
-            else
-                return jObject.toString()
-        }
         return result.toString()
     }
 
