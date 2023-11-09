@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
 
 }
 
@@ -60,4 +61,5 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
+    //implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.4")
 }

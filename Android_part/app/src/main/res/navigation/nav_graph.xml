@@ -11,43 +11,18 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
+            android:id="@+id/action_loginFragment_to_passwordSendFragment"
+            app:destination="@+id/passwordSendFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
             android:id="@+id/action_loginFragment_to_startMenuFragment"
-            app:destination="@id/startMenuActivity" />
-        <action
-            android:id="@+id/action_loginFragment_to_password_send"
-            app:destination="@id/password_send" />
-        <action
-            android:id="@+id/action_loginFragment_to_registration"
-            app:destination="@id/registration" />
+            app:destination="@id/startMenuFragment" />
     </fragment>
-    <activity
-        android:id="@+id/startMenuActivity"
-        android:name="hu.bme.aut.android.app_frontend.StartMenuActivity"
-        android:label="fragment_start_menu"
-        tools:layout="@layout/activity_start_menu" >
-
-
-<!--         <action-->
-<!--             android:id="@+id/action_startMenuFragment_to_placesOfInterestActivity"-->
-<!--             app:destination="@id/placesOfInterestActivity" />-->
-
-<!--         <action-->
-<!--             android:id="@+id/action_startMenuFragment_to_loginFragment"-->
-<!--             app:destination="@id/loginFragment" />-->
-     </activity>
-
-     <activity
-         android:id="@+id/placesOfInterestActivity"
-         android:name="hu.bme.aut.android.app_frontend.PlacesOfInterestActivity"
-         android:label="fragment_places_of_interest"
-         tools:layout="@layout/activity_places_of_interest" >
-<!--         <action-->
-<!--             android:id="@+id/action_placesOfInterestActivity_to_startMenuActivity"-->
-<!--             app:destination="@id/startMenuActivity" />-->
-     </activity>
 
     <fragment
-        android:id="@+id/password_send"
+        android:id="@+id/passwordSendFragment"
         android:name="hu.bme.aut.android.app_frontend.ForgotPassword"
         android:label="fragment_password_send"
         tools:layout="@layout/fragment_forgot_password" >
@@ -57,7 +32,7 @@
 
     </fragment>
     <fragment
-        android:id="@+id/registration"
+        android:id="@+id/registrationFragment"
         android:name="hu.bme.aut.android.app_frontend.Registration"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
@@ -66,9 +41,27 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/touristSpot"
+        android:id="@+id/touristSpotFragment"
         android:name="hu.bme.aut.android.app_frontend.touristSpot"
         android:label="fragment_tourist_spot"
         tools:layout="@layout/fragment_tourist_spot" />
+    <fragment
+        android:id="@+id/placesOfInterestFragment"
+        android:name="hu.bme.aut.android.app_frontend.PlacesOfInterestFragment"
+        android:label="fragment_places_of_interest"
+        tools:layout="@layout/fragment_places_of_interest" />
+    <fragment
+        android:id="@+id/startMenuFragment"
+        android:name="hu.bme.aut.android.app_frontend.StartMenuFragment"
+        android:label="fragment_start_menu"
+        tools:layout="@layout/fragment_start_menu" >
+        <action
+            android:id="@+id/action_startMenuFragment_to_placesOfInterestFragment"
+            app:destination="@id/placesOfInterestFragment" />
+        <argument
+            android:name="loginPassword"
+            app:argType="string"
+            android:defaultValue="nem_erkezett_meg" />
+    </fragment>
 
 </navigation>

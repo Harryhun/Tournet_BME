@@ -2,9 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_style"
+        android:id="@+id/places_interest"
         android:icon="@drawable/menu_icon3"
-        android:title="@string/startMenuOptions"
+        android:gravity="center"
+        android:title="@string/back_to_start_menu"
         app:showAsAction="ifRoom">
         <menu>
             <item
