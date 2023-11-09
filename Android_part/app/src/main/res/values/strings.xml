@@ -24,4 +24,5 @@
     <string name="spot">Spot</string>
     <string name="spot2">SPOT</string>
     <string name="descrition">descrition</string>
+    <string name="password2">Password:</string>
 </resources>
