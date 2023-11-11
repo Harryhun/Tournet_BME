@@ -30,7 +30,7 @@ class AndroidFrontendConnector {
         queue.take()
         if (result == null) {
             var jObject = JSONObject()
-            jObject.put("status", 0)
+            jObject.put("status", -1)
             return jObject
         }
         return JSONObject(result)
@@ -77,12 +77,6 @@ class AndroidFrontendConnector {
         return POST("/requestPlaces", placesInfo.toString())
     }
 
-    public fun GetPlaceDetails(placeId: Int): JSONObject {
-        var placeInfo = JSONObject()
-        placeInfo.put("placeId", placeId)
-        return POST("/requestPlaceDetails", placeInfo.toString())
-    }
-
     public fun SendSuggestion(domainId: Int, suggestionName: String): JSONObject {
         var suggestionInfo = JSONObject()
         suggestionInfo.put("domainId", domainId)
@@ -112,5 +106,24 @@ class AndroidFrontendConnector {
         updateInfo.put("type", type)
         updateInfo.put("newInfo", newInfo)
         return POST("/profileUpdate", updateInfo.toString())
+    }
+
+    public fun GetUserData(): JSONObject {
+        var userInfo = JSONObject()
+        userInfo.put("userId", userId)
+        return POST("/requestUserData", userInfo.toString())
+    }
+
+    public fun GetUserRating(placeId: Int): JSONObject {
+        var ratingInfo = JSONObject()
+        ratingInfo.put("userId", userId)
+        ratingInfo.put("placeId", placeId)
+        return POST("/requestUserRating", ratingInfo.toString())
+    }
+
+    public fun GetRecommendedDomain(): JSONObject {
+        var domainInfo = JSONObject()
+        domainInfo.put("empty", "empty")
+        return POST("/requestRecommendedDomain", domainInfo.toString())
     }
 }
