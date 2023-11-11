@@ -43,4 +43,16 @@ app.post('/profileUpdate', (req, res) => {
     f.profileUpdate(req, res)
 })
 
+app.post('/requestUserData', (req, res) => {
+    f.requestUserData(req, res)
+})
+
+app.post('/requestUserRating', (req, res) => {
+    f.requestUserRating(req, res)
+})
+
+app.post('/requestRecommendedDomain', (req, res) => {
+    f.requestRecommendedDomain(req, res)
+})
+
 app.listen(3000)

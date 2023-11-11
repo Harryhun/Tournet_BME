@@ -39,8 +39,7 @@ module.exports = function() {
                 if(queryRes == null)
                 {
                     res.json({
-                        status: 0, //Üres válasz
-                        userId: null
+                        status: 0 //Üres válasz
                     })
                 }
                 else
@@ -54,8 +53,7 @@ module.exports = function() {
             .catch((err) =>
             {
                 res.json({
-                    status: 2, //Sikertelen
-                    userId: null
+                    status: 2 //Sikertelen
                 })
             })
         }
@@ -93,15 +91,13 @@ module.exports = function() {
                 .catch((err) =>
                 {
                     res.json({
-                        status: 2, //Sikertelen
-                        userId: null
+                        status: 2 //Sikertelen
                     })
                 })
             })
             .catch((err) => {
                 res.json({
-                    status: 2, //Sikertelen
-                    userId: null
+                    status: 2 //Sikertelen
                 })
             })
         }
@@ -126,8 +122,7 @@ module.exports = function() {
                 if(queryRes == null)
                 {
                     res.json({
-                        status: 0, //Üres válasz
-                        userId: null
+                        status: 0 //Üres válasz
                     })
                     return
                 }
@@ -146,12 +141,12 @@ module.exports = function() {
                     {
                         service: 'gmail',
                         auth: {
-                            user: 'TournetBMEPassRecovery@gmail.com',
-                            pass: 'afeeqdjeczemdkzs' //! NAGY A BAJ
+                            user: 'tournetbme@gmail.com',
+                            pass: 'iatfnpnoenfmghoj' //!tournet123
                         }
                     })
                     const content = {
-                        from: 'TournetBMEPassRecovery@gmail.com',
+                        from: 'tournetbme@gmail.com',
                         to: req.body.emailAddress,
                         subject: 'TournetBME - Jelszó helyreállítás',
                         text: 'Az új jelszavad: ' + newPass + "\n\nKérjük, hogy a fiókod biztonsága érdekében a következő bejelentkezésnél állíts új jelszót a profilbeállításoknál!"
@@ -167,7 +162,7 @@ module.exports = function() {
                         else
                         {
                             res.json({
-                                status: 1, //Sikeres
+                                status: 1 //Sikeres
                             })
                         }
                     })   
@@ -175,14 +170,14 @@ module.exports = function() {
                 .catch((err) =>
                 {
                     res.json({
-                        status: 2, //Sikertelen
+                        status: 2 //Sikertelen
                     })
                 })        
             })
             .catch((err) =>
             {
                 res.json({
-                    status: 2, //Sikertelen
+                    status: 2 //Sikertelen
                 })
             })
         }
@@ -207,7 +202,7 @@ module.exports = function() {
                     domainObjectList[i] = {}
                     domainObjectList[i]['name'] = queryRes[i].dataValues.name
                     domainObjectList[i]['rating'] = queryRes[i].dataValues.rating
-                    domainObjectList[i]['picture'] = Buffer(fs.readFileSync('./images/domains/'+queryRes[i].dataValues.picture.source)).toString('base64')
+                    domainObjectList[i]['picture'] = Buffer.from(fs.readFileSync('./images/domains/'+queryRes[i].dataValues.picture.source)).toString('base64')
                 }
                 res.json({
                     status: 1, //Sikeres
@@ -217,7 +212,7 @@ module.exports = function() {
             .catch((err) =>
             {
                 res.json({
-                    status: 2, //Sikertelen
+                    status: 2 //Sikertelen
                 })
             })
         }
@@ -248,7 +243,7 @@ module.exports = function() {
                     placeObjectList[i]['rating']['fourStar'] = queryRes[i].dataValues.rating.fourStar
                     placeObjectList[i]['rating']['fiveStar'] = queryRes[i].dataValues.rating.fiveStar
                     placeObjectList[i]['visitors'] = queryRes[i].dataValues.visitors
-                    placeObjectList[i]['picture'] = Buffer(fs.readFileSync('./images/places/'+queryRes[i].dataValues.picture.source)).toString('base64')
+                    placeObjectList[i]['picture'] = Buffer.from(fs.readFileSync('./images/places/'+queryRes[i].dataValues.picture.source)).toString('base64')
                     placeObjectList[i]['description'] = queryRes[i].dataValues.description
                     placeObjectList[i]['website'] = queryRes[i].dataValues.website
                     placeObjectList[i]['price'] = queryRes[i].dataValues.price
@@ -263,7 +258,7 @@ module.exports = function() {
             .catch((err) =>
             {
                 res.json({
-                    status: 2, //Sikertelen
+                    status: 2 //Sikertelen
                 })
             })
         }
@@ -285,12 +280,12 @@ module.exports = function() {
             })
             .then(queryRes => {
                 res.json({
-                    status: 1, //Sikeres
+                    status: 1 //Sikeres
                 })
             })
             .catch((err) => {
                 res.json({
-                    status: 2, //Sikertelen
+                    status: 2 //Sikertelen
                 })
             })
         }
@@ -320,25 +315,14 @@ module.exports = function() {
                         rating: 0
                     })
                     .then(queryRes2 => {
-                        db.place.increment({visitors: +1},{
-                            where: { id: req.body.placeId }
-                        })
-                        .then(queryRes3 => {
-                            res.json({
-                                status: 1, //Sikeres
-                            })
-                        })
-                        .catch((err) =>
-                        {
-                            res.json({
-                                status: 2, //Sikertelen
-                            })
+                        res.json({
+                            status: 1 //Sikeres
                         })
                     })
                     .catch((err) =>
                     {
                         res.json({
-                            status: 2, //Sikertelen
+                            status: 2 //Sikertelen
                         })
                     })
                 }
@@ -346,25 +330,14 @@ module.exports = function() {
                 {
                     queryRes.destroy()
                     .then(queryRes2 => {
-                        db.place.increment({visitors: -1},{
-                            where: { id: req.body.placeId }
-                        })
-                        .then(queryRes3 => {
-                            res.json({
-                                status: 1, //Sikeres
-                            })
-                        })
-                        .catch((err) =>
-                        {
-                            res.json({
-                                status: 2, //Sikertelen
-                            })
+                        res.json({
+                            status: 1 //Sikeres
                         })
                     })
                     .catch((err) =>
                     {
                         res.json({
-                            status: 2, //Sikertelen
+                            status: 2 //Sikertelen
                         })
                     })
                 }
@@ -372,7 +345,7 @@ module.exports = function() {
             .catch((err) =>
             {
                 res.json({
-                    status: 2, //Sikertelen
+                    status: 2 //Sikertelen
                 })
             })
         }
@@ -404,13 +377,13 @@ module.exports = function() {
                     })
                     .then(queryRes2 => {
                         res.json({
-                            status: 1, //Sikeres
+                            status: 1 //Sikeres
                         })
                     })
                     .catch((err) =>
                     {
                         res.json({
-                            status: 2, //Sikertelen
+                            status: 2 //Sikertelen
                         })
                     })
                 }
@@ -424,13 +397,13 @@ module.exports = function() {
                     })
                     .then(queryRes2 => {
                         res.json({
-                            status: 1, //Sikeres
+                            status: 1 //Sikeres
                         })
                     })
                     .catch((err) =>
                     {
                         res.json({
-                            status: 2, //Sikertelen
+                            status: 2 //Sikertelen
                         })
                     })
                 }
@@ -438,7 +411,7 @@ module.exports = function() {
             .catch((err) =>
             {
                 res.json({
-                    status: 2, //Sikertelen
+                    status: 2 //Sikertelen
                 })
             })
         }
@@ -453,7 +426,6 @@ module.exports = function() {
         user = auth(req)
         if(user)
         {   
-            //---ADATBÁZIS UPDATE (Sequelize?)---
             switch(req.body.type)
             {
                 default: break;
@@ -466,13 +438,13 @@ module.exports = function() {
                 })
                 .then(queryRes => {
                     res.json({
-                        status: 1, //Sikeres
+                        status: 1 //Sikeres
                 })
                 })
                 .catch((err) =>
                 {
                     res.json({
-                        status: 2, //Sikertelen
+                        status: 2 //Sikertelen
                     })
                 })
 
@@ -486,13 +458,13 @@ module.exports = function() {
                 })
                 .then(queryRes => {
                     res.json({
-                        status: 1, //Sikeres
+                        status: 1 //Sikeres
                 })
                 })
                 .catch((err) =>
                 {
                     res.json({
-                        status: 2, //Sikertelen
+                        status: 2 //Sikertelen
                     })
                 })
 
@@ -506,14 +478,14 @@ module.exports = function() {
                 })
                 .then(queryRes => {
                     res.json({
-                        status: 1, //Sikeres
+                        status: 1 //Sikeres
                     })
                 })
                 .catch((err) =>
                 {
                     console.log(err)
                     res.json({
-                        status: 2, //Sikertelen
+                        status: 2 //Sikertelen
                     })
                 })
 
@@ -524,5 +496,130 @@ module.exports = function() {
         {
             res.status(403).send("Access denied.")
         }
-    }    
+    }
+    
+    this.requestUserData = async function requestUserData(req, res)
+    {
+        user = auth(req)
+        if(user)
+        {  
+            db.user.findOne({
+                where: {
+                    id: req.body.userId
+                }
+            })
+            .then((queryRes) => 
+            {
+                if(queryRes == null)
+                {
+                    res.json({
+                        status: 0 //Üres válasz
+                    })
+                }
+                else
+                {
+                    res.json({
+                        status: 1, //Sikeres
+                        userName: queryRes.dataValues.name,
+                        password: queryRes.dataValues.password,
+                        emailAddress: queryRes.dataValues.email
+                    })
+                }
+            })
+            .catch((err) =>
+            {
+                res.json({
+                    status: 2 //Sikertelen
+                })
+            })
+        }
+        else
+        {
+            res.status(403).send("Access denied.")
+        }
+    }
+
+    this.requestUserRating = async function requestUserRating(req, res)
+    {
+        user = auth(req)
+        if(user)
+        {  
+            db.userplaceconnector.findOne({
+                where: {
+                    userId: req.body.userId,
+                    placeId: req.body.placeId
+                }
+            })
+            .then((queryRes) => 
+            {
+                if(queryRes == null)
+                {
+                    res.json({
+                        status: 0 //Üres válasz
+                    })
+                }
+                else
+                {
+                    res.json({
+                        status: 1, //Sikeres
+                        ratingValue: queryRes.dataValues.rating
+                    })
+                }
+            })
+            .catch((err) =>
+            {
+                res.json({
+                    status: 2 //Sikertelen
+                })
+            })
+        }
+        else
+        {
+            res.status(403).send("Access denied.")
+        }
+    }
+
+    this.requestRecommendedDomain = async function requestRecommendedDomain(req, res)
+    {
+        user = auth(req)
+        if(user)
+        {  
+            db.domain.findOne({
+                include: [db.picture],
+                where: {
+                    id: 1
+                }
+            })
+            .then((queryRes) => 
+            {
+                if(queryRes == null)
+                {
+                    res.json({
+                        status: 0 //Üres válasz
+                    })
+                }
+                else
+                {
+                    res.json({
+                        status: 1, //Sikeres
+                        domainId: queryRes.dataValues.id,
+                        name: queryRes.dataValues.name,
+                        rating: queryRes.dataValues.rating,
+                        picture: Buffer.from(fs.readFileSync('./images/places/'+queryRes.dataValues.picture.source)).toString('base64')
+                    })
+                }
+            })
+            .catch((err) =>
+            {
+                console.log(err)
+                res.json({
+                    status: 2 //Sikertelen
+                })
+            })
+        }
+        else
+        {
+            res.status(403).send("Access denied.")
+        }
+    }
 }
