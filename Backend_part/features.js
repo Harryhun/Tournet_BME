@@ -46,12 +46,14 @@ module.exports = function() {
                 {
                     res.json({
                         status: 1, //Sikeres
-                        userId: queryRes.dataValues.id
+                        userId: queryRes.dataValues.id,
+                        roleId: queryRes.dataValues.roleId
                     })
                 }
             })
             .catch((err) =>
             {
+                console.log(err)
                 res.json({
                     status: 2 //Sikertelen
                 })
