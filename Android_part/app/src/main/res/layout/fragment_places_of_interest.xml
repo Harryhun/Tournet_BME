@@ -25,6 +25,7 @@
             android:background="@drawable/toolbar"/>
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlacesOfInterest"
         android:layout_marginTop="?attr/actionBarSize"

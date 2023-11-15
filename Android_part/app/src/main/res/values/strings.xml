@@ -25,4 +25,10 @@
     <string name="spot2">SPOT</string>
     <string name="descrition">descrition</string>
     <string name="password2">Password:</string>
+    <string name="spot_name">Spot name</string>
+    <string name="p_csi_bazilika">Pecsi Székesegyház </string>
+    <string name="web">Web</string>
+    <string name="web2">Web:</string>
+    <string name="price">Price:</string>
+    <string name="visited">Visited</string>
 </resources>
