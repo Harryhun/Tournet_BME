@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class touristSpot : Fragment() {
+class TouristSpotFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import hu.bme.aut.android.app_frontend.apiconnector.AndroidFrontendConnector
 import hu.bme.aut.android.app_frontend.databinding.ActivityMainBinding.inflate
 import hu.bme.aut.android.app_frontend.databinding.FragmentLoginBinding
 
 
 
 class LoginFragment : Fragment() {
+    private var connector = AndroidFrontendConnector()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentLoginBinding.inflate(layoutInflater)
@@ -47,11 +50,23 @@ class LoginFragment : Fragment() {
                 binding.etPassword.error = "Please enter your password"
             }
             else {
+                 val result = connector.Login(binding.etUserName.text.toString(), binding.etPassword.text.toString())
+                when(result.getInt("status")){
+                    1 -> {
+                        val action=LoginFragmentDirections.actionLoginFragmentToStartMenuFragment("Mukodik_safeargs")//just Test
+                        findNavController().navigate(action)
+                    }
+                    -1 -> {
+                        Snackbar.make(it, "Connection problem", 5).show()
+                    }
+                    0 -> {
+                        Snackbar.make(it, "Username not found", 5).show()
+                    }
+                    2 -> {
+                        Snackbar.make(it, "Incorrect password", 5).show()
+                    }
+                }
 
-                //TODO: internet connection check with AlertDialog
-                val action=LoginFragmentDirections.actionLoginFragmentToStartMenuFragment("Mukodik_safeargs")//just Test
-                findNavController().navigate(action)//safeArgs
-                //findNavController().navigate(R.id.action_loginFragment_to_startMenuFragment)
             }
         }
         binding.btnForgotPassword.setOnClickListener {

@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/touristSpotFragment"
-        android:name="hu.bme.aut.android.app_frontend.touristSpot"
+        android:name="hu.bme.aut.android.app_frontend.TouristSpotFragment"
         android:label="fragment_tourist_spot"
         tools:layout="@layout/fragment_tourist_spot" />
     <fragment
