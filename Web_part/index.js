@@ -1,4 +1,4 @@
-const roleId = 2
+let roleId = 0
 const container = document.getElementById('root')
 const root = ReactDOM.createRoot(container)
 
@@ -10,7 +10,7 @@ function LoginScreen() {
         <div>
             <h1>Tournet BME Kezelőfelület</h1>
             <h2>Bejelentkezés</h2>
-            <form onSubmit={LoginValidation}>
+            <form>
                 <div>
                     <label for="usernameInput">Felhasználónév:</label>
                     <input type="text" id="usernameInput" onChange={event => userName = event.target.value} required></input>
@@ -19,10 +19,10 @@ function LoginScreen() {
                     <label for="passwordInput">Jelszó:</label>
                     <input type="password" id="passwordInput" onChange={event => password = event.target.value} required></input>
                 </div>
-                <div>
-                    <input id="loginBtn" value="Bejelentkezés" type="submit"></input>
-                </div>
             </form>
+            <div>
+                <button id="loginBtn" value="Bejelentkezés" onClick={LoginValidation}>Bejelentkezés</button>
+            </div>
         </div>
     );
     return loginScreenComponents
@@ -31,7 +31,7 @@ function LoginScreen() {
 function DisplayMenu()
 {
     let menuItems = ["Helyek", "Új hely", "Ajánlások"]
-    if(roleId == 2)
+    if(roleId == 1)
     {
         menuItems.push("Jogosultságok")
     }
@@ -99,11 +99,15 @@ function RolesScreen()
     root.render(rolesScreenComponents)
 }
 
-function LoginValidation()
+async function LoginValidation()
 {
-  //TODO szerverrel való kommunikáció (WebFrontendConnector)
-  //Ha sikeres a login:
-  PlacesScreen()
+  const loginRes = await Login(userName, password)
+  if(loginRes.status == 1 && loginRes.roleId != 3)
+  {
+    roleId = loginRes.roleId
+    PlacesScreen()
+  }
+  //TODO nincs ilyen felh / user a felhasználó
 }
 
 root.render(<LoginScreen />)
