@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -12,20 +13,14 @@
     android:padding="16dp"
     android:clickable="true"
     android:background="#E0F7FA"
-
-
-
-    android:layout_constraintBottom_toBottomOf="parent"
-    android:layout_constraintEnd_toEndOf="parent"
-    android:layout_constraintStart_toStartOf="parent"
-    android:layout_constraintTop_toTopOf="parent"
-    android:layout_constraintTop_toBottomOf="parent">
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:padding="4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background_blue4"
         >
 
         <ImageView
@@ -50,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/white"
+
+                android:backgroundTint="#07000000"
 
                 tools:text="Templom" />
 
@@ -60,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
                 tools:text="A családnak tetszett a kirándulás."
-                android:background="@color/white"
+
+                android:backgroundTint="#07000000"
                 />
 
             <TextView
@@ -69,7 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
                 tools:text="20 Ft"
-                android:background="@color/white"
+                android:backgroundTint="#07000000"
+
                 />
         </LinearLayout>
 
