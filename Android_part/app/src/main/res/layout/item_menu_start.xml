@@ -23,7 +23,7 @@
         android:padding="4dp">
 
         <ImageView
-            android:id="@+id/megyeId"
+            android:id="@+id/bIcon"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="14dp"
             app:layout_constraintBottom_toTopOf="@+id/latogatottsag_szoveg"
-            app:layout_constraintStart_toEndOf="@+id/megyeId"
+            app:layout_constraintStart_toEndOf="@+id/bIcon"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"
@@ -55,7 +55,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/megyeId"
+            app:layout_constraintStart_toEndOf="@+id/bIcon"
             app:layout_constraintTop_toBottomOf="@+id/ertekeles_szoveg"
             tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"
