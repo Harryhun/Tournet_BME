@@ -1,14 +1,19 @@
 const url = "http://localhost:3000"
 let userId = 0
 
-async function Login(userName, password)
+class Place
 {
-    const loginInfo = {
-        userName: userName,
-        password: password
+    constructor(id, name, picture, description, website, price, latitude, longitude)
+    {
+        this.id = id;
+        this.name = name;
+        this.picture = picture;
+        this.description = description;
+        this.website = website;
+        this.price = price;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
-    return await POST('/login', loginInfo)
-
 }
 
 async function POST(commandName, data)
@@ -23,11 +28,116 @@ async function POST(commandName, data)
     })
     if(res == null)
     {
-        const emptyRes = {
+        const emptyRes =
+        {
             status: -1,
         }
         return emptyRes
     }
     return await res.json()
+}
 
+async function Login(userName, password)
+{
+    const loginInfo =
+    {
+        userName: userName,
+        password: password
+    }
+    return await POST('/login', loginInfo)
+}
+
+async function GetDomains()
+{
+    const domainInfo = 
+    {
+        empty: empty
+    }
+    return await POST('/requestDomains', domainInfo)
+}
+
+async function GetPlaces(domainId)
+{
+    const placesInfo = 
+    {
+        domainId: domainId
+    }
+    return await POST('/requestPlaces', placesInfo)
+}
+
+async function AddPlace(placeAdded)
+{
+    const placeInfo = 
+    {
+        name: placeAdded.name,
+        picture: placeAdded.picture,
+        description: placeAdded.description,
+        website: placeAdded.website,
+        price: placeAdded.price,
+        latitude: placeAdded.latitude,
+        longitude: placeAdded.longitude
+    }
+    return await POST('/addPlace', placeInfo)
+}
+
+async function EditPlace(placeEdited)
+{
+    const placeInfo = 
+    {
+        id: placeEdited.id,
+        name: placeEdited.name,
+        picture: placeEdited.picture,
+        description: placeEdited.description,
+        website: placeEdited.website,
+        price: placeEdited.price,
+        latitude: placeEdited.latitude,
+        longitude: placeEdited.longitude
+    }
+    return await POST('/editPlace', placeInfo)
+}
+
+async function DeletePlace(placeId)
+{
+    const placeInfo = 
+    {
+        id: placeId
+    }
+    return await POST('/deletePlace', placeInfo)
+}
+
+async function GetSuggestions(domainId)
+{
+    const suggestionInfo = 
+    {
+        domainId: domainId
+    }
+    return await POST('/requestSuggestions', suggestionInfo)
+}
+
+async function DeleteSuggestion(suggestionId)
+{
+    const suggestionInfo = 
+    {
+        suggestionId: suggestionId
+    }
+    return await POST('/deleteSuggestion', suggestionInfo)
+}
+
+async function GetUsers()
+{
+    const userInfo = 
+    {
+        empty: empty
+    }
+    return await POST('/requestUsers', userInfo)
+}
+
+async function SetUserRole(userId, newRoleId)
+{
+    const userInfo =
+    {
+        userId: userId,
+        newRoleId: newRoleId
+    }
+    return await POST('/setUserRole', userInfo)
 }

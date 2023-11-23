@@ -19,12 +19,17 @@ class AndroidFrontendConnector {
         var result: String? = "0"
         val queue = LinkedBlockingQueue<Int>()
         Thread {
-            var req = Request.Builder()
-                .url(url + commandName)
-                .addHeader("Authorization", Credentials.basic("user", "pass"))
-                .post(data.toRequestBody(json_media))
-                .build()
-            result = client.newCall(req).execute().body?.string() //must contain status key
+            try {
+                var req = Request.Builder()
+                    .url(url + commandName)
+                    .addHeader("Authorization", Credentials.basic("user", "pass"))
+                    .post(data.toRequestBody(json_media))
+                    .build()
+                result = client.newCall(req).execute().body?.string() //must contain status key
+            }
+            catch (e: Exception) {
+                result = null
+            }
             queue.add(1)
         }.start()
         queue.take()
