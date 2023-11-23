@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:background="@drawable/login_background"
+    tools:context=".Registration">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="12dp"
+        android:layout_marginVertical="0dp"
+        android:layout_weight="7.5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/font_login"
+            android:textSize="35sp"
+            android:text="@string/your_profile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:textSize="20sp"
+            android:layout_margin="2dp"
+            android:text="@string/username" />
+
+        <EditText
+            android:id="@+id/etUserNameToChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:layout_margin="2dp"
+            android:textSize="25sp"
+            android:text="@string/gipsz_jakab"
+            android:maxLength="20"
+            android:lines="1"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:layout_margin="2dp"
+            android:textSize="20sp"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/etEmailAddressToChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:layout_margin="2dp"
+            android:textSize="25sp"
+            android:text="@string/gibszjakab_gmail_com"
+            android:maxLength="30"
+            android:lines="1"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:layout_margin="2dp"
+            android:textSize="20sp"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@+id/etPasswordToChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:layout_margin="2dp"
+            android:textSize="25sp"
+            android:text="@string/adminadmin"
+            android:maxLength="30"
+            android:lines="1"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:textSize="20sp"
+            android:layout_margin="2dp"
+            android:text="@string/role" />
+
+        <TextView
+            android:id="@+id/etRole"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_login"
+            android:textSize="30sp"
+            android:layout_margin="2dp"
+            android:text="@string/simpleuser"
+            />
+
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnBackToBeforeFragment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_login"
+                android:textSize="20sp"
+                android:backgroundTint="@color/black"
+                android:alpha="0.6"
+                android:layout_weight="1"
+                android:text="@string/back" />
+            <Button
+                android:id="@+id/btnSaveChanges"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_login"
+                android:textSize="20sp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/lightBlue"
+                android:textColor="@color/black"
+                android:alpha="0.6"
+                android:text="@string/savechanges" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

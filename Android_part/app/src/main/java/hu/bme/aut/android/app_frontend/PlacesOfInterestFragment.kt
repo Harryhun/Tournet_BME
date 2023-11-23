@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.app_frontend.adapter.PlacesOfInterestAdapter
@@ -38,6 +39,26 @@ class PlacesOfInterestFragment : Fragment(), PlacesOfInterestAdapter.PlacesOfInt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.inflateMenu(R.menu.menu_places_interest)
+
+
+        binding.toolbar.setOnMenuItemClickListener{
+            when(it.itemId){
+                R.id.menu_profile -> {
+                    findNavController().navigate(R.id.action_placesOfInterestFragment_to_showProfilFragment)
+                    true
+                }
+                R.id.menu_exit -> {
+                    findNavController().navigate(R.id.action_placesOfInterestFragment_to_loginFragment)
+
+
+                    true
+                }
+                else -> true
+            }
+        }
+
+
+
     }
 
     private fun initRecyclerView() {
