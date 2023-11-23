@@ -108,6 +108,8 @@ async function LoginValidation()
     PlacesScreen()
   }
   //TODO nincs ilyen felh / user a felhasználó
+  let placeAdd = new Place("új hely up2", 2 ,"ujpic.png", "ez egy új hely IGEN", "https://www.ujhely.hu", 50000, 50.01, 0.01)
+  console.log(DeletePlace(6))
 }
 
 root.render(<LoginScreen />)
