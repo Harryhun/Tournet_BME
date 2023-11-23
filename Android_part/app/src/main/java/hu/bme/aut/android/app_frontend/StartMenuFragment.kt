@@ -49,9 +49,7 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
         binding.toolbar.setOnMenuItemClickListener{
             when(it.itemId){
                 R.id.menu_profile -> {
-                    true
-                }
-                R.id.menu_modify -> {
+                    findNavController().navigate(R.id.action_startMenuFragment_to_showProfilFragment)
                     true
                 }
                 R.id.menu_exit -> {

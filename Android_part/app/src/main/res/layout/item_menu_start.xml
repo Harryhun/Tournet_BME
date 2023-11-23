@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints"
-            tools:src="@drawable/baranya" />
+            android:src="@drawable/baranya" />
 
         <TextView
             android:id="@+id/ertekeles_szoveg"
@@ -46,7 +46,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"
-            tools:text="Értékelés:" />
+            android:text="@string/rt_kel_s" />
 
         <TextView
             android:id="@+id/latogatottsag_szoveg"
@@ -59,7 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ertekeles_szoveg"
             tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"
-            tools:text="Látogatottság:" />
+            android:text="@string/l_togatotts_g" />
 
         <TextView
             android:id="@+id/ertekeles_szam"
@@ -74,7 +74,7 @@
             app:layout_constraintVertical_bias="0.309"
             tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"
-            tools:text="4.5" />
+            android:text="@string/_4_5" />
 
         <TextView
             android:id="@+id/latogatottsag_szam"
@@ -89,7 +89,7 @@
             app:layout_constraintVertical_bias="0.69"
             tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"
-            tools:text="134 " />
+            android:text="@string/_134" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

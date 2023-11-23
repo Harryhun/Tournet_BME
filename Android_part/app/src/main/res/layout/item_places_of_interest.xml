@@ -28,7 +28,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginLeft="8dp"
-            tools:src="@drawable/baranya"
+            android:src="@drawable/baranya"
             tools:ignore="MissingConstraints" />
 
         <LinearLayout
@@ -48,14 +48,14 @@
 
                 android:backgroundTint="#07000000"
 
-                tools:text="Templom" />
+                android:text="@string/templom" />
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
-                tools:text="A családnak tetszett a kirándulás."
+                android:text="@string/a_csal_dnak_tetszett_a_kir_ndul_s"
 
                 android:backgroundTint="#07000000"
                 />
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
-                tools:text="20 Ft"
+                android:text="@string/_20_ft"
                 android:backgroundTint="#07000000"
 
                 />
