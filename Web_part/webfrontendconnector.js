@@ -40,8 +40,6 @@ async function POST(commandName, data)
     {
         const emptyRes =
         {
-        const emptyRes =
-        {
             status: -1,
         }
         return emptyRes
