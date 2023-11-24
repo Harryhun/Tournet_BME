@@ -65,6 +65,7 @@ class LoginFragment : Fragment() {
                     2 -> {
                         Snackbar.make(it, "Incorrect password", 5).show()
                     }
+                    else -> Snackbar.make(it, "Unknown error occurred", 5).show()
                 }
 
             }
