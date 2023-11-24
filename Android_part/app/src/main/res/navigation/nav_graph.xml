@@ -23,17 +23,17 @@
 
     <fragment
         android:id="@+id/passwordSendFragment"
-        android:name="hu.bme.aut.android.app_frontend.ForgotPassword"
+        android:name="hu.bme.aut.android.app_frontend.ForgotPasswordFragment"
         android:label="fragment_password_send"
         tools:layout="@layout/fragment_forgot_password" >
         <action
-            android:id="@+id/action_password_send_to_loginFragment"
+            android:id="@+id/action_forgot_password_to_loginFragment"
             app:destination="@id/loginFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="hu.bme.aut.android.app_frontend.Registration"
+        android:name="hu.bme.aut.android.app_frontend.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
