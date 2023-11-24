@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import hu.bme.aut.android.app_frontend.apiconnector.AndroidFrontendConnector
 import hu.bme.aut.android.app_frontend.databinding.FragmentRegistrationBinding
 
 
-class Registration : Fragment() {
-
+class RegistrationFragment : Fragment() {
+    private var connector = AndroidFrontendConnector()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +56,23 @@ class Registration : Fragment() {
                 binding.etPasswordToRegisterAgain.error = "Passwords are not the same"
             }
             else {
-                findNavController().navigate(R.id.action_registration_to_loginFragment)
+                val result = connector.SignUp(binding.etUserNameToRegister.text.toString(),
+                    binding.etPasswordToRegister.text.toString(), binding.etEmailAddressToRegister.text.toString())
+                when(result.getInt("status")){
+                    1 -> {
+                        findNavController().navigate(R.id.action_registration_to_loginFragment)
+                    }
+                    -1 -> {
+                        Snackbar.make(it, "Connection problem", 5).show()
+                    }
+                    0 -> {
+                        Snackbar.make(it, "Username not found", 5).show()
+                    }
+                    2 -> {
+                        Snackbar.make(it, "Incorrect password", 5).show()
+                    }
+                    else -> Snackbar.make(it, "Unknown error occurred", 5).show()
+                }
             }
         }
     }

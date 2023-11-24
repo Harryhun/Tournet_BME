@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import hu.bme.aut.android.app_frontend.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
+import hu.bme.aut.android.app_frontend.apiconnector.AndroidFrontendConnector
 import hu.bme.aut.android.app_frontend.databinding.FragmentForgotPasswordBinding
 
 
-class ForgotPassword : Fragment() {
-
+class ForgotPasswordFragment : Fragment() {
+    private var connector = AndroidFrontendConnector()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,16 +36,27 @@ class ForgotPassword : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSendPasswordToEmail.setOnClickListener {
-            if(binding.etUserNameToSendMail.text.toString().isEmpty()) {
-                binding.etUserNameToSendMail.requestFocus()
-                binding.etUserNameToSendMail.error = "Please enter your Username"
-            }
-            else if (binding.etEmailAddressToSendMail.text.toString().isEmpty()) {
+            if (binding.etEmailAddressToSendMail.text.toString().isEmpty()) {
                 binding.etEmailAddressToSendMail.requestFocus()
                 binding.etEmailAddressToSendMail.error = "Please enter your email address"
             }
             else {
-                findNavController().navigate(R.id.action_password_send_to_loginFragment)
+                val result = connector.ForgotPassword(binding.etEmailAddressToSendMail.text.toString())
+                when(result.getInt("status")){
+                    1 -> {
+                        findNavController().navigate(R.id.action_forgot_password_to_loginFragment)
+                    }
+                    -1 -> {
+                        Snackbar.make(it, "Connection problem", 5).show()
+                    }
+                    0 -> {
+                        Snackbar.make(it, "Username not found", 5).show()
+                    }
+                    2 -> {
+                        Snackbar.make(it, "Incorrect password", 5).show()
+                    }
+                    else -> Snackbar.make(it, "Unknown error occurred", 5).show()
+                }
             }
         }
     }
