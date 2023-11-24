@@ -12,5 +12,9 @@
     <color name="orange">#FFFFA500</color>
     <color name="purple">#FF800080</color>
     <color name="brown">#FFA52A2A</color>
+    <color name="pink">#FFFFC0CB</color>
+    <color name="lightGreen">#FF90EE90</color>
+    <color name="lightRed">#FFFF6347</color>
+
 
 </resources>

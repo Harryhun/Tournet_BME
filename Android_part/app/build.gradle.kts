@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "hu.bme.aut.android.app_frontend"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -62,4 +62,5 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     //implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.4")
+    implementation("androidx.cardview:cardview:1.0.0")
 }

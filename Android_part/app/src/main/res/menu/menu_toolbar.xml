@@ -11,9 +11,6 @@
                 android:id="@+id/menu_profile"
                 android:title="@string/profile" />
             <item
-                android:id="@+id/menu_modify"
-                android:title="@string/modify" />
-            <item
                 android:id="@+id/menu_exit"
                 android:title="@string/exit" />
         </menu>

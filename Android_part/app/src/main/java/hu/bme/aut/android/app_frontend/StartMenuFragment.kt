@@ -9,12 +9,14 @@ import android.view.SubMenu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.app_frontend.adapter.StartMenuAdapter
+import hu.bme.aut.android.app_frontend.apiconnector.AndroidFrontendConnector
 import hu.bme.aut.android.app_frontend.data.StartMenuItem
 import hu.bme.aut.android.app_frontend.data.StartMenuListDatabase
 import hu.bme.aut.android.app_frontend.databinding.FragmentStartMenuBinding
@@ -24,7 +26,7 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
     private lateinit var binding: FragmentStartMenuBinding
     private lateinit var database: StartMenuListDatabase
     private lateinit var adapter: StartMenuAdapter
-    val args:StartMenuFragmentArgs by navArgs()//safeArgs
+    private var connector = AndroidFrontendConnector()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentStartMenuBinding.inflate(layoutInflater)
@@ -38,7 +40,6 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentStartMenuBinding.inflate(inflater, container, false)
-        binding.etPasswordToRegister2.text=args.loginPassword.toString()//safeArgs
         return binding.root
     }
 
@@ -49,9 +50,7 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
         binding.toolbar.setOnMenuItemClickListener{
             when(it.itemId){
                 R.id.menu_profile -> {
-                    true
-                }
-                R.id.menu_modify -> {
+                    findNavController().navigate(R.id.action_startMenuFragment_to_showProfilFragment)
                     true
                 }
                 R.id.menu_exit -> {
@@ -72,8 +71,23 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
     private fun loadItemsInBackground() {
         thread {
             val items = database.startMenuItemDao().getAll()
-            requireActivity().runOnUiThread{
-                adapter.update(items)
+            if(items.isEmpty()){
+                val data = connector.GetDomains()
+                val jsonArray = data.getJSONArray("domains")
+                for(i in 0..jsonArray.length()){
+                    val obj = jsonArray.getJSONObject(i)
+                    val newItem = StartMenuItem(null, obj.getString("name"), obj.getString("picture"))
+                    val insertId = database.startMenuItemDao().insert(newItem)
+                    newItem.id = insertId
+                    requireActivity().runOnUiThread{
+                        adapter.addItem(newItem)
+                    }
+                }
+            }
+            else{
+                requireActivity().runOnUiThread{
+                    adapter.update(items)
+                }
             }
         }
     }

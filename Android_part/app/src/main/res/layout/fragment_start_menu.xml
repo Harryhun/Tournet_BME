@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frStartMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StartMenuFragment"
@@ -23,20 +24,6 @@
         android:background="@drawable/toolbar"
         />
     </com.google.android.material.appbar.AppBarLayout>
-
-
-
-    <!--    Just for testing-->
-    <TextView
-        android:id="@+id/etPasswordToRegister2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/password"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        tools:ignore="MissingConstraints"
-         />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStartMenu"

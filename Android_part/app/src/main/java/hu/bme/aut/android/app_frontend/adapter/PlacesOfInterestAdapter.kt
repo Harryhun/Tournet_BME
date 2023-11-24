@@ -20,6 +20,7 @@ class PlacesOfInterestAdapter(private val listener: PlacesOfInterestItemClickLis
 
         holder.binding.ivIcon.setBackgroundResource(getImageResource(placeInterestItem.name))
 
+
     }
     @DrawableRes
     private fun getImageResource(name: String): Int{
