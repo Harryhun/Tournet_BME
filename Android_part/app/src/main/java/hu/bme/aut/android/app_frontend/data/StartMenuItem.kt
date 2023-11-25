@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "startmenuitem")
 data class StartMenuItem(
     @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) var id: Long? = null,
+    @ColumnInfo(name = "domainId") var domainId: Int,
     @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "rating") var rating: String,
     @ColumnInfo(name = "resPath") var resPath: String,
 )

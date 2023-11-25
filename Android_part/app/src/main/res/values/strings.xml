@@ -36,9 +36,9 @@
     <string name="currentPrice">2400Ft</string>
     <string name="currentAvgRating">4,5</string>
     <string name="rt_kel_s">Értékelés:</string>
-    <string name="l_togatotts_g">Látogatottság:</string>
+    <string name="name">Név:</string>
     <string name="_4_5">4.5</string>
-    <string name="_134">134</string>
+    <string name="nameDefValue">Baranya</string>
     <string name="templom">Templom</string>
     <string name="a_csal_dnak_tetszett_a_kir_ndul_s">A családnak tetszett a kirándulás.</string>
     <string name="_20_ft">20 Ft</string>

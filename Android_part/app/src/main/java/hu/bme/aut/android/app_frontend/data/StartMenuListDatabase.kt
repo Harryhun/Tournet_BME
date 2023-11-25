@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [StartMenuItem::class], version = 1)
+@Database(entities = [StartMenuItem::class], version = 3)
 abstract class StartMenuListDatabase : RoomDatabase(){
     abstract fun startMenuItemDao() : StartMenuItemDao
     companion object{
@@ -14,7 +14,7 @@ abstract class StartMenuListDatabase : RoomDatabase(){
                 applicationContext,
                 StartMenuListDatabase::class.java,
                 "startmenuitem-list"
-            ).build();
+            ).fallbackToDestructiveMigration().build();
         }
     }
 }

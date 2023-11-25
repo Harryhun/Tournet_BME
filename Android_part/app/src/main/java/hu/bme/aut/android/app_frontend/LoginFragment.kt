@@ -27,7 +27,6 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding=FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,29 +40,25 @@ class LoginFragment : Fragment() {
                 binding.etUserName.requestFocus()
                 binding.etUserName.error = "Please enter your username"
             }
-            else if(binding.etEmailAddress.text.toString().isEmpty()) {
-                binding.etEmailAddress.requestFocus()
-                binding.etEmailAddress.error = "Please enter your email address"
-            }
             else if(binding.etPassword.text.toString().isEmpty()) {
                 binding.etPassword.requestFocus()
                 binding.etPassword.error = "Please enter your password"
             }
             else {
                  val result = connector.Login(binding.etUserName.text.toString(), binding.etPassword.text.toString())
+
                 when(result.getInt("status")){
                     1 -> {
-                        //val action=LoginFragmentDirections.actionLoginFragmentToStartMenuFragment("Mukodik_safeargs")//just Test
                         findNavController().navigate(R.id.action_loginFragment_to_startMenuFragment)
                     }
                     -1 -> {
                         Snackbar.make(it, "Connection problem", 5).show()
                     }
                     0 -> {
-                        Snackbar.make(it, "Username not found", 5).show()
+                        Snackbar.make(it, "Incorrect username or password", 5).show()
                     }
                     2 -> {
-                        Snackbar.make(it, "Incorrect password", 5).show()
+                        Snackbar.make(it, "Server error", 5).show()
                     }
                     else -> Snackbar.make(it, "Unknown error occurred", 5).show()
                 }
