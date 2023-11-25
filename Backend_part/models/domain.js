@@ -11,10 +11,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: false
     },
-    rating: {
-      type: DataTypes.DECIMAL(3,2),
-      allowNull: false
-    },
     pictureId: {
       type: DataTypes.INTEGER,
       allowNull: false,

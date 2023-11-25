@@ -3,16 +3,26 @@ let userId = 0
 
 class Place
 {
-    constructor(id, name, picture, description, website, price, latitude, longitude)
+    constructor(name, domainId, picture, description, website, price, latitude, longitude)
     {
-        this.id = id;
+        this.id = 0;
+        this.ratingId = 0;
         this.name = name;
+        this.domainId = domainId;
         this.picture = picture;
         this.description = description;
         this.website = website;
         this.price = price;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+    setId(id)
+    {
+        this.id = id
+    }
+    setRatingId(ratingId)
+    {
+        this.ratingId = ratingId
     }
 }
 
@@ -51,7 +61,7 @@ async function GetDomains()
 {
     const domainInfo = 
     {
-        empty: empty
+        empty: "empty"
     }
     return await POST('/requestDomains', domainInfo)
 }
@@ -70,6 +80,7 @@ async function AddPlace(placeAdded)
     const placeInfo = 
     {
         name: placeAdded.name,
+        domainId: placeAdded.domainId,
         picture: placeAdded.picture,
         description: placeAdded.description,
         website: placeAdded.website,
@@ -86,6 +97,7 @@ async function EditPlace(placeEdited)
     {
         id: placeEdited.id,
         name: placeEdited.name,
+        domainId: placeEdited.domainId,
         picture: placeEdited.picture,
         description: placeEdited.description,
         website: placeEdited.website,
@@ -127,7 +139,7 @@ async function GetUsers()
 {
     const userInfo = 
     {
-        empty: empty
+        empty: "empty"
     }
     return await POST('/requestUsers', userInfo)
 }

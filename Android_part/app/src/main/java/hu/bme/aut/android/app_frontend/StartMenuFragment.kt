@@ -9,6 +9,7 @@ import android.view.SubMenu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,7 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
     private lateinit var binding: FragmentStartMenuBinding
     private lateinit var database: StartMenuListDatabase
     private lateinit var adapter: StartMenuAdapter
+    private var connector = AndroidFrontendConnector()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentStartMenuBinding.inflate(layoutInflater)
@@ -69,10 +71,23 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
     private fun loadItemsInBackground() {
         thread {
             val items = database.startMenuItemDao().getAll()
-
-
-            requireActivity().runOnUiThread{
-                adapter.update(items)
+            if(items.isEmpty()){
+                val data = connector.GetDomains()
+                val jsonArray = data.getJSONArray("domains")
+                for(i in 0..jsonArray.length()){
+                    val obj = jsonArray.getJSONObject(i)
+                    val newItem = StartMenuItem(null, obj.getString("name"), obj.getString("picture"))
+                    val insertId = database.startMenuItemDao().insert(newItem)
+                    newItem.id = insertId
+                    requireActivity().runOnUiThread{
+                        adapter.addItem(newItem)
+                    }
+                }
+            }
+            else{
+                requireActivity().runOnUiThread{
+                    adapter.update(items)
+                }
             }
         }
     }

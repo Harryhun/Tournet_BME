@@ -5,14 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="110dp"
-    android:background="#E0F7FA"
     app:layout_constraintHorizontal_bias="0.5"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true"
     android:padding="16dp"
     android:clickable="true"
-    >
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -23,7 +22,7 @@
         android:padding="4dp">
 
         <ImageView
-            android:id="@+id/bIcon"
+            android:id="@+id/ivIcon"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginStart="8dp"
@@ -42,7 +41,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="14dp"
             app:layout_constraintBottom_toTopOf="@+id/latogatottsag_szoveg"
-            app:layout_constraintStart_toEndOf="@+id/bIcon"
+            app:layout_constraintStart_toEndOf="@+id/ivIcon"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"
@@ -55,7 +54,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/bIcon"
+            app:layout_constraintStart_toEndOf="@+id/ivIcon"
             app:layout_constraintTop_toBottomOf="@+id/ertekeles_szoveg"
             tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"

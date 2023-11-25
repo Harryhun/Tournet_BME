@@ -1,14 +1,13 @@
 package hu.bme.aut.android.app_frontend.adapter
 
-import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
-import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.app_frontend.R
 import hu.bme.aut.android.app_frontend.data.StartMenuItem
 import hu.bme.aut.android.app_frontend.databinding.ItemMenuStartBinding
+import java.util.Base64
 
 class StartMenuAdapter(private val listener: StartMenuItemClickListener) :
     RecyclerView.Adapter<StartMenuAdapter.StartMenuViewHolder>() {
@@ -19,15 +18,16 @@ class StartMenuAdapter(private val listener: StartMenuItemClickListener) :
     override fun onBindViewHolder(holder: StartMenuViewHolder, position: Int) {
         val startMenuItem = items[position]
 
-        holder.binding.bIcon.setBackgroundResource(getImageResource(startMenuItem.name))
-        holder.binding.bIcon.setOnClickListener{
+        holder.binding.ivIcon.setImageBitmap(getImageResource(startMenuItem))
+        holder.binding.ivIcon.setOnClickListener{
             
         }
 
     }
-    @DrawableRes
-    private fun getImageResource(name: String): Int{
-        return R.drawable.baranya
+    private fun getImageResource(item: StartMenuItem): Bitmap {
+        val base64Img = item.resPath
+        val decodedBytes = Base64.getDecoder().decode(base64Img)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
     }
     fun addItem(item: StartMenuItem) {
         items.add(item)

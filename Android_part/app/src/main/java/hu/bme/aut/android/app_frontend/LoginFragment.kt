@@ -53,8 +53,8 @@ class LoginFragment : Fragment() {
                  val result = connector.Login(binding.etUserName.text.toString(), binding.etPassword.text.toString())
                 when(result.getInt("status")){
                     1 -> {
-                        val action=LoginFragmentDirections.actionLoginFragmentToStartMenuFragment("Mukodik_safeargs")//just Test
-                        findNavController().navigate(action)
+                        //val action=LoginFragmentDirections.actionLoginFragmentToStartMenuFragment("Mukodik_safeargs")//just Test
+                        findNavController().navigate(R.id.action_loginFragment_to_startMenuFragment)
                     }
                     -1 -> {
                         Snackbar.make(it, "Connection problem", 5).show()
@@ -65,6 +65,7 @@ class LoginFragment : Fragment() {
                     2 -> {
                         Snackbar.make(it, "Incorrect password", 5).show()
                     }
+                    else -> Snackbar.make(it, "Unknown error occurred", 5).show()
                 }
 
             }
