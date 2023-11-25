@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/font_login"
             android:textSize="20sp"
-            android:text="@string/please_write_in_your_username_and_email_address" />
+            android:text="@string/please_provide_your_email_address" />
 
         <TextView
             android:layout_width="wrap_content"

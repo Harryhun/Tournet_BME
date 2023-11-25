@@ -27,12 +27,6 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
     private lateinit var database: StartMenuListDatabase
     private lateinit var adapter: StartMenuAdapter
     private var connector = AndroidFrontendConnector()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentStartMenuBinding.inflate(layoutInflater)
-        database = StartMenuListDatabase.getDatabase(this.requireContext())
-        initRecyclerView()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +39,8 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        database = StartMenuListDatabase.getDatabase(this.requireContext())
+        initRecyclerView()
         binding.toolbar.inflateMenu(R.menu.menu_toolbar)
 
         binding.toolbar.setOnMenuItemClickListener{
@@ -71,24 +67,18 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
     private fun loadItemsInBackground() {
         thread {
             val items = database.startMenuItemDao().getAll()
-            if(items.isEmpty()){
-                val data = connector.GetDomains()
-                val jsonArray = data.getJSONArray("domains")
-                for(i in 0..jsonArray.length()){
-                    val obj = jsonArray.getJSONObject(i)
-                    val newItem = StartMenuItem(null, obj.getString("name"), obj.getString("picture"))
-                    val insertId = database.startMenuItemDao().insert(newItem)
-                    newItem.id = insertId
-                    requireActivity().runOnUiThread{
-                        adapter.addItem(newItem)
-                    }
-                }
+
+            val data = connector.GetDomains()
+            val jsonArray = data.getJSONArray("domains")
+            for(i in 0 until jsonArray.length()){
+                val obj = jsonArray.getJSONObject(i)
+                val newItem = StartMenuItem(null, obj.getInt("id"), obj.getString("name"), obj.getString("rating") , obj.getString("picture"))
+                items.add(newItem)
             }
-            else{
-                requireActivity().runOnUiThread{
-                    adapter.update(items)
-                }
+            requireActivity().runOnUiThread{
+                adapter.update(items)
             }
+
         }
     }
     override fun onItemChanged(item: StartMenuItem) {
@@ -106,5 +96,10 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
                 adapter.addItem(item)
             }
         }
+    }
+
+    override fun onItemSelected(item: StartMenuItem) {
+        val action = StartMenuFragmentDirections.actionStartMenuFragmentToPlacesOfInterestFragment(domainId = item.domainId)
+        findNavController().navigate(action)
     }
 }

@@ -26,7 +26,7 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-    binding=FragmentRegistrationBinding.inflate(inflater, container, false)
+        binding=FragmentRegistrationBinding.inflate(inflater, container, false)
         return binding.root
     }
 

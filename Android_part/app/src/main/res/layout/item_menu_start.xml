@@ -34,61 +34,63 @@
             tools:ignore="MissingConstraints"
             android:src="@drawable/baranya" />
 
-        <TextView
-            android:id="@+id/ertekeles_szoveg"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glVertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="14dp"
-            app:layout_constraintBottom_toTopOf="@+id/latogatottsag_szoveg"
-            app:layout_constraintStart_toEndOf="@+id/ivIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.42">
+        </androidx.constraintlayout.widget.Guideline>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5">
+        </androidx.constraintlayout.widget.Guideline>
+
+        <TextView
+            android:id="@+id/tvRatingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/glHorizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/ivIcon"
+            app:layout_constraintStart_toStartOf="@+id/tvNameText"
             android:backgroundTint="#07000000"
             android:text="@string/rt_kel_s" />
 
         <TextView
-            android:id="@+id/latogatottsag_szoveg"
+            android:id="@+id/tvNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="17dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@+id/ivIcon"
-            app:layout_constraintTop_toBottomOf="@+id/ertekeles_szoveg"
-            tools:ignore="MissingConstraints"
             android:backgroundTint="#07000000"
-            android:text="@string/l_togatotts_g" />
+            android:text="@string/name" />
 
         <TextView
-            android:id="@+id/ertekeles_szam"
+            android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.222"
-            app:layout_constraintStart_toEndOf="@+id/ertekeles_szoveg"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.309"
-            tools:ignore="MissingConstraints"
+            app:layout_constraintStart_toStartOf="@id/glVertical"
+            app:layout_constraintTop_toTopOf="@id/tvRatingText"
+            android:maxLength="3"
             android:backgroundTint="#07000000"
             android:text="@string/_4_5" />
 
         <TextView
-            android:id="@+id/latogatottsag_szam"
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.218"
-            app:layout_constraintStart_toEndOf="@+id/ertekeles_szoveg"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.69"
-            tools:ignore="MissingConstraints"
+            app:layout_constraintStart_toEndOf="@id/glVertical"
+            app:layout_constraintBottom_toBottomOf="@id/tvNameText"
             android:backgroundTint="#07000000"
-            android:text="@string/_134" />
+            android:text="@string/nameDefValue" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

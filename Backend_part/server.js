@@ -72,4 +72,32 @@ app.post('/requestRecommendedDomain', (req, res) => {
     f.requestRecommendedDomain(req, res)
 })
 
+app.post('/addPlace', (req, res) => {
+    f.addPlace(req, res)
+})
+
+app.post('/editPlace', (req, res) => {
+    f.editPlace(req, res)
+})
+
+app.post('/deletePlace', (req, res) => {
+    f.deletePlace(req, res)
+})
+
+app.post('/requestSuggestions', (req, res) => {
+    f.requestSuggestions(req, res)
+})
+
+app.post('/deleteSuggestion', (req, res) => {
+    f.deleteSuggestions(req, res)
+})
+
+app.post('/requestUsers', (req, res) => {
+    f.requestUsers(req, res)
+})
+
+app.post('/setUserRole', (req, res) => {
+    f.setUserRole(req, res)
+})
+
 app.listen(3000)
