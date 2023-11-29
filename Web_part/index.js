@@ -64,7 +64,6 @@ async function PlacesScreen() {
         let pList = await GetPlaces(dList.domains[i].id)
         for (let j = 0; j < pList.places.length; j++)
         {
-            console.log(pList.places[j])
             objectList.push(
                         <div>
                         <h3 class="placeNames">{pList.places[j].name}</h3>
@@ -242,7 +241,7 @@ async function EditPlaceScreen(place, domainId)
                 </div>
                 <div>
                     <label for="picInput">Picture:</label>
-                    <input type="file" id="picInput" accept="image/*" onChange={event => editPlace.picture = event.target.value} required></input>
+                    <input type="file" id="picInput" accept="image/*" onChange={event => editPlace.picture = event.target.value}></input>
                 </div>
                 <div>
                     <label for="descInput">Description:</label>
@@ -284,24 +283,45 @@ async function LoginValidation(userName, password)
 
 async function PlaceEditValidation(editPlace)
 {
-    //TODO PICTURE XD
-    const editRes = await EditPlace(editPlace)
-    if(editRes.status == 1)
+    let reader = new FileReader()
+    if(document.getElementById("picInput").files[0] != null)
     {
-        PlacesScreen()
+        reader.readAsDataURL(document.getElementById("picInput").files[0])
+        reader.onload = async () => {
+            editPlace.picture = reader.result.split(',')[1]
+            const editRes = await EditPlace(editPlace)
+            if(editRes.status == 1)
+            {
+                PlacesScreen()
+            }
+          };
     }
-    //TODO validation?
+    else
+    {
+        const editRes = await EditPlace(editPlace)
+        if(editRes.status == 1)
+        {
+            PlacesScreen()
+        }
+    }
 }
 
 async function PlaceValidation(newPlace)
 {
-    newPlace.picture = "baz.png" //TODO PICTURE XD
-    const addRes = await AddPlace(newPlace)
-    if(addRes.status == 1)
-    {
-        PlacesScreen()
-    }
-    //TODO validation?
+    let reader = new FileReader()
+    reader.readAsDataURL(document.getElementById("picInput").files[0])
+    reader.onload = async () => {
+        newPlace.picture = reader.result.split(',')[1]
+        if(newPlace.domainId == null)
+        {
+            newPlace.domainId = 1
+        }
+        const addRes = await AddPlace(newPlace)
+        if(addRes.status == 1)
+        {
+            PlacesScreen()
+        }
+      };
 }
 
 async function ChangeRole(user)
