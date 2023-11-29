@@ -1,12 +1,16 @@
 package hu.bme.aut.android.app_frontend.adapter
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.app_frontend.R
 import hu.bme.aut.android.app_frontend.data.PlacesOfInterestItem
+import hu.bme.aut.android.app_frontend.data.StartMenuItem
 import hu.bme.aut.android.app_frontend.databinding.ItemPlacesOfInterestBinding
+import java.util.Base64
 
 
 class PlacesOfInterestAdapter(private val listener: PlacesOfInterestItemClickListener) :
@@ -18,13 +22,18 @@ class PlacesOfInterestAdapter(private val listener: PlacesOfInterestItemClickLis
     override fun onBindViewHolder(holder: PlacesOfInterestViewHolder, position: Int) {
         val placeInterestItem = items[position]
 
-        holder.binding.ivIcon.setBackgroundResource(getImageResource(placeInterestItem.name))
-
+        holder.binding.ivIcon.setImageBitmap(getImageResource(placeInterestItem))
+        holder.binding.tvName.text = placeInterestItem.name
+        holder.binding.tvPrice.text = placeInterestItem.estimatedPrice.toString()
+        holder.binding.cvPlaceItem.setOnClickListener{
+            listener.onItemSelected(placeInterestItem)
+        }
 
     }
-    @DrawableRes
-    private fun getImageResource(name: String): Int{
-        return R.drawable.baranya
+    private fun getImageResource(item: PlacesOfInterestItem): Bitmap {
+        val base64Img = item.resPath
+        val decodedBytes = Base64.getDecoder().decode(base64Img)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
     }
     fun addItem(item: PlacesOfInterestItem) {
         items.add(item)
@@ -42,6 +51,8 @@ class PlacesOfInterestAdapter(private val listener: PlacesOfInterestItemClickLis
     interface PlacesOfInterestItemClickListener {
         fun onItemChanged(item: PlacesOfInterestItem)
         fun onItemAdded(item: PlacesOfInterestItem)
+
+        fun onItemSelected(item: PlacesOfInterestItem)
     }
 
     inner class PlacesOfInterestViewHolder(val binding: ItemPlacesOfInterestBinding) : RecyclerView.ViewHolder(binding.root)

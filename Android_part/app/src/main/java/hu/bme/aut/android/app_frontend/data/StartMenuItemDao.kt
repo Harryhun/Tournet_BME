@@ -9,7 +9,7 @@ import androidx.room.Update
 @Dao
 interface StartMenuItemDao {
     @Query("SELECT * FROM startmenuitem")
-    fun getAll(): List<StartMenuItem>
+    fun getAll(): MutableList<StartMenuItem>
 
     @Insert
     fun insert(shoppingItems: StartMenuItem): Long

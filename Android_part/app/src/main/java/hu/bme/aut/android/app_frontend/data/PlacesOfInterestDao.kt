@@ -9,7 +9,7 @@ import androidx.room.Update
 @Dao
 interface PlacesOfInterestDao {
     @Query("SELECT * FROM placesOfInterestItem")
-    fun getAll(): List<PlacesOfInterestItem>
+    fun getAll(): MutableList<PlacesOfInterestItem>
 
     @Insert
     fun insert(shoppingItems: PlacesOfInterestItem): Long
