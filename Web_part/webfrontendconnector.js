@@ -3,10 +3,8 @@ let userId = 0
 
 class Place
 {
-    constructor(name, domainId, picture, description, website, price, latitude, longitude)
+    constructor(name, domainId, picture, description, website, price, latitude, longitude, id = 0)
     {
-        this.id = 0;
-        this.ratingId = 0;
         this.name = name;
         this.domainId = domainId;
         this.picture = picture;
@@ -15,14 +13,7 @@ class Place
         this.price = price;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-    setId(id)
-    {
-        this.id = id
-    }
-    setRatingId(ratingId)
-    {
-        this.ratingId = ratingId
+        this.id = id;
     }
 }
 

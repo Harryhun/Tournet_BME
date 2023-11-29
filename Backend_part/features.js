@@ -913,7 +913,10 @@ module.exports = function() {
         if(user)
         {  
             db.suggestion.findAll({
-                include: [db.domain, db.user]
+                include: [db.domain, db.user],
+                where: {
+                    domainId: req.body.domainId
+                }
             })
             .then(queryRes => {
                 let suggestionObjectList = new Array()
@@ -921,7 +924,7 @@ module.exports = function() {
                 {
                     suggestionObjectList[i] = {}
                     suggestionObjectList[i]['id'] = queryRes[i].dataValues.id
-                    suggestionObjectList[i]['domain'] = queryRes[i].dataValues.domain.name
+                    suggestionObjectList[i]['domainId'] = queryRes[i].dataValues.domain.id
                     suggestionObjectList[i]['user'] = queryRes[i].dataValues.user.name
                     suggestionObjectList[i]['suggestion'] = queryRes[i].dataValues.suggestion
                 }
@@ -982,6 +985,7 @@ module.exports = function() {
                 for(let i = 0; i < queryRes.length; i++)
                 {
                     userObjectList[i] = {}
+                    userObjectList[i]['id'] = queryRes[i].dataValues.id
                     userObjectList[i]['name'] = queryRes[i].dataValues.name
                     userObjectList[i]['password'] = queryRes[i].dataValues.password
                     userObjectList[i]['email'] = queryRes[i].dataValues.email
