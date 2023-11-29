@@ -71,6 +71,8 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
     private fun loadItemsInBackground() {
         thread {
             val items = database.startMenuItemDao().getAll()
+
+
             if(items.isEmpty()){
                 val data = connector.GetDomains()
                 val jsonArray = data.getJSONArray("domains")
