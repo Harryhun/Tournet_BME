@@ -2,6 +2,7 @@ package hu.bme.aut.android.app_frontend.adapter
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +20,10 @@ class StartMenuAdapter(private val listener: StartMenuItemClickListener) :
         val startMenuItem = items[position]
 
         holder.binding.ivIcon.setImageBitmap(getImageResource(startMenuItem))
+        holder.binding.tvName.text = startMenuItem.name
+        holder.binding.tvRating.text = startMenuItem.rating
         holder.binding.ivIcon.setOnClickListener{
-            
+            listener.onItemSelected(startMenuItem)
         }
 
     }
@@ -45,6 +48,8 @@ class StartMenuAdapter(private val listener: StartMenuItemClickListener) :
     interface StartMenuItemClickListener {
         fun onItemChanged(item: StartMenuItem)
         fun onItemAdded(item: StartMenuItem)
+
+        fun onItemSelected(item: StartMenuItem)
     }
 
     inner class StartMenuViewHolder(val binding: ItemMenuStartBinding) : RecyclerView.ViewHolder(binding.root)
