@@ -6,8 +6,9 @@ function LoginScreen() {
     let userName = ""
     let password = ""
     const loginScreenComponents = (
-        <div>
+        <div class="formContainer">
             <h1>Tournet BME Admin Interface</h1>
+            <div class="formContainerInner">
             <h2>Login</h2>
             <form>
                 <div>
@@ -20,7 +21,8 @@ function LoginScreen() {
                 </div>
             </form>
             <div>
-                <button id="loginBtn" onClick={() => LoginValidation(userName, password)}>Login</button>
+                <button class="submitBtn" onClick={() => LoginValidation(userName, password)}>Login</button>
+            </div>
             </div>
         </div>
     );
@@ -65,15 +67,15 @@ async function PlacesScreen() {
         for (let j = 0; j < pList.places.length; j++)
         {
             objectList.push(
-                        <div>
+                        <div class="place">
                         <h3 class="placeNames">{pList.places[j].name}</h3>
-                        <button onClick={() => EditPlaceScreen(pList.places[j], dList.domains[i].id)}>Edit</button>
-                        <button onClick={() => RemovePlace(pList.places[j].id)}>Delete</button>
+                        <button class="editBtn" onClick={() => EditPlaceScreen(pList.places[j], dList.domains[i].id)}></button>
+                        <button class="delBtn" onClick={() => RemovePlace(pList.places[j].id)}></button>
                         </div>)
         }
     }
     const placesScreenComponents = (
-        <div>
+        <div class="screenContainer">
         <DisplayMenu />
         <h1>Places</h1>
         { objectList }
@@ -98,9 +100,10 @@ async function NewPlaceScreen(placeName = null, domainId = 1)
         }
     }
     const newPlaceScreenComponents = (
-        <div>
+        <div class="formContainer">
         <DisplayMenu />
         <h1>Add New Place</h1>
+        <div class="formContainerInner">
             <form>
                 <div>
                     <label for="nameInput">Name:</label>
@@ -136,8 +139,9 @@ async function NewPlaceScreen(placeName = null, domainId = 1)
                 </div>
             </form>
             <div>
-                <button id="newPlaceBtn" onClick={() => PlaceValidation(newPlace)}>Add Place</button>
+                <button class="submitBtn" onClick={() => PlaceValidation(newPlace)}>Add Place</button>
             </div>
+        </div>
         </div>
     );
     root.render(newPlaceScreenComponents)
@@ -156,17 +160,17 @@ async function SuggestionsScreen()
             for (let j = 0; j < sList.suggestions.length; j++)
             {
                 objectList.push(
-                        <div>
+                        <div class="suggestion">
                             <h3 class="suggestionNames">{sList.suggestions[j].suggestion}</h3>
                             <p class="suggestionOwner">{sList.suggestions[j].user}</p>
-                            <button onClick={() => AcceptSuggestion(sList.suggestions[j])}>Accept</button>
-                            <button onClick={() => DeclineSuggestion(sList.suggestions[j].id)}>Decline</button>
+                            <button class="acceptBtn" onClick={() => AcceptSuggestion(sList.suggestions[j])}></button>
+                            <button class="declineBtn" onClick={() => DeclineSuggestion(sList.suggestions[j].id)}></button>
                         </div>)
             }
         }
     }
     const suggestionScreenComponents = (
-        <div>
+        <div class="screenContainer">
         <DisplayMenu />
         <h1>Suggestions</h1>
         { objectList }
@@ -180,27 +184,34 @@ async function RolesScreen()
     let uList = await GetUsers()
     let userList = []
     let roles = ["Admin", "Editor", "User"]
-    let promotedemoteText = ["Demote", "Promote"]
     for (let i = 0; i < uList.users.length; i++)
     {
         if(uList.users[i].roleId == 1)
         {
-            userList.push(<div>
+            userList.push(<div class="role">
                 <h2 class="userNames">{uList.users[i].name}</h2>
                 <p class="userRole">{roles[uList.users[i].roleId-1]}</p>
+              </div>)
+        }
+        else if(uList.users[i].roleId == 2)
+        {
+            userList.push(<div class="role">
+                <h2 class="userNames">{uList.users[i].name}</h2>
+                <p class="userRole">{roles[uList.users[i].roleId-1]}</p>
+                <button class="demoteBtn" onClick={() => ChangeRole(uList.users[i])}></button>
               </div>)
         }
         else
         {
-            userList.push(<div>
+            userList.push(<div class="role">
                 <h2 class="userNames">{uList.users[i].name}</h2>
                 <p class="userRole">{roles[uList.users[i].roleId-1]}</p>
-                <button onClick={() => ChangeRole(uList.users[i])}>{promotedemoteText[uList.users[i].roleId-2]}</button>
+                <button class="promoteBtn" onClick={() => ChangeRole(uList.users[i])}></button>
               </div>)
         }
     }
     const rolesScreenComponents = (
-        <div>
+        <div class="screenContainer">
         <DisplayMenu />
         <h1>Users</h1>
         {userList}
@@ -225,9 +236,10 @@ async function EditPlaceScreen(place, domainId)
         }
     }
     const editPlaceScreenComponents = (
-        <div>
+        <div class="formContainer">
         <DisplayMenu />
         <h1>Edit Place</h1>
+        <div class="formContainerInner">
             <form>
                 <div>
                     <label for="nameInput">Name:</label>
@@ -263,8 +275,9 @@ async function EditPlaceScreen(place, domainId)
                 </div>
             </form>
             <div>
-                <button id="editPlaceBtn" onClick={() => PlaceEditValidation(editPlace)}>Edit Place</button>
+                <button class="submitBtn" onClick={() => PlaceEditValidation(editPlace)}>Edit Place</button>
             </div>
+        </div>
         </div>
     );
     root.render(editPlaceScreenComponents)
