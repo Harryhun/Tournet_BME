@@ -291,7 +291,14 @@ async function LoginValidation(userName, password)
     roleId = loginRes.roleId
     PlacesScreen()
   }
-  //TODO nincs ilyen felh / user a felhasználó
+  else if(loginRes.status == 0)
+  {
+    alert("Nincs ilyen felhasználó!")
+  }
+  else if(loginRes.roleId == 3)
+  {
+    alert("Az adott felhasználó nem megfelelő rangú!")
+  }
 }
 
 async function PlaceEditValidation(editPlace)
