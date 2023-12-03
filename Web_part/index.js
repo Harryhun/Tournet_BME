@@ -86,7 +86,7 @@ async function PlacesScreen() {
 
 async function NewPlaceScreen(placeName = null, domainId = 1)
 {
-    let newPlace = new Place(null, null, null, null, null, null, null, null)
+    let newPlace = new Place(placeName, domainId, null, null, null, null, null, null)
     let dList = await GetDomains()
     let domainOptionList = []
     for (let i = 0; i < dList.domains.length; i++) {
@@ -107,7 +107,7 @@ async function NewPlaceScreen(placeName = null, domainId = 1)
             <form>
                 <div>
                     <label for="nameInput">Name:</label>
-                    <input type="text" id="nameInput" placeholder={placeName} onChange={event => newPlace.name = event.target.value} required></input>
+                    <input type="text" id="nameInput" placeholder={placeName} onChange={event => newPlace.name = event.target.value}></input>
                 </div>
                 <div>
                     <label for="domainInput">Domain:</label>
@@ -117,25 +117,25 @@ async function NewPlaceScreen(placeName = null, domainId = 1)
                 </div>
                 <div>
                     <label for="picInput">Picture:</label>
-                    <input type="file" id="picInput" accept="image/*" onChange={event => newPlace.picture = event.target.value} required></input>
+                    <input type="file" id="picInput" accept="image/*"></input>
                 </div>
                 <div>
                     <label for="descInput">Description:</label>
-                    <textarea id="descInput" onChange={event => newPlace.description = event.target.value} required></textarea>
+                    <textarea id="descInput" onChange={event => newPlace.description = event.target.value}></textarea>
                 </div>
                 <div>
                     <label for="webInput">Website:</label>
-                    <input type="text" id="webInput" onChange={event => newPlace.website = event.target.value} required></input>
+                    <input type="text" id="webInput" onChange={event => newPlace.website = event.target.value}></input>
                 </div>
                 <div>
                     <label for="priceInput">Price:</label>
-                    <input type="number" id="priceInput" onChange={event => newPlace.price = event.target.value} required></input>
+                    <input type="number" id="priceInput" onChange={event => newPlace.price = event.target.value}></input>
                 </div>
                 <div>
                     <label for="latInput">Latitude:</label>
-                    <input type="number" id="latInput" onChange={event => newPlace.latitude = event.target.value} required></input>
+                    <input type="number" id="latInput" onChange={event => newPlace.latitude = event.target.value}></input>
                     <label for="longInput">Longitude:</label>
-                    <input type="number" id="longInput" onChange={event => newPlace.longitude = event.target.value} required></input>
+                    <input type="number" id="longInput" onChange={event => newPlace.longitude = event.target.value}></input>
                 </div>
             </form>
             <div>
@@ -243,7 +243,7 @@ async function EditPlaceScreen(place, domainId)
             <form>
                 <div>
                     <label for="nameInput">Name:</label>
-                    <input type="text" id="nameInput" placeholder={place.name} onChange={event => editPlace.name = event.target.value} required></input>
+                    <input type="text" id="nameInput" placeholder={place.name} onChange={event => editPlace.name = event.target.value}></input>
                 </div>
                 <div>
                     <label for="domainInput">Domain:</label>
@@ -253,25 +253,25 @@ async function EditPlaceScreen(place, domainId)
                 </div>
                 <div>
                     <label for="picInput">Picture:</label>
-                    <input type="file" id="picInput" accept="image/*" onChange={event => editPlace.picture = event.target.value}></input>
+                    <input type="file" id="picInput" accept="image/*"></input>
                 </div>
                 <div>
                     <label for="descInput">Description:</label>
-                    <textarea id="descInput" onChange={event => editPlace.description = event.target.value} required>{place.description}</textarea>
+                    <textarea id="descInput" onChange={event => editPlace.description = event.target.value}>{place.description}</textarea>
                 </div>
                 <div>
                     <label for="webInput">Website:</label>
-                    <input type="text" id="webInput" placeholder={place.website} onChange={event => editPlace.website = event.target.value} required></input>
+                    <input type="text" id="webInput" placeholder={place.website} onChange={event => editPlace.website = event.target.value}></input>
                 </div>
                 <div>
                     <label for="priceInput">Price:</label>
-                    <input type="number" id="priceInput" placeholder={place.price} onChange={event => editPlace.price = event.target.value} required></input>
+                    <input type="number" id="priceInput" placeholder={place.price} onChange={event => editPlace.price = event.target.value}></input>
                 </div>
                 <div>
                     <label for="latInput">Latitude:</label>
-                    <input type="number" id="latInput" placeholder={place.latitude} onChange={event => editPlace.latitude = event.target.value} required></input>
+                    <input type="number" id="latInput" placeholder={place.latitude} onChange={event => editPlace.latitude = event.target.value}></input>
                     <label for="longInput">Longitude:</label>
-                    <input type="number" id="longInput" placeholder={place.longitude} onChange={event => editPlace.longitude = event.target.value} required></input>
+                    <input type="number" id="longInput" placeholder={place.longitude} onChange={event => editPlace.longitude = event.target.value}></input>
                 </div>
             </form>
             <div>
@@ -293,16 +293,21 @@ async function LoginValidation(userName, password)
   }
   else if(loginRes.status == 0)
   {
-    alert("Nincs ilyen felhasználó!")
+    alert("Username or password is incorrect!")
   }
   else if(loginRes.roleId == 3)
   {
-    alert("Az adott felhasználó nem megfelelő rangú!")
+    alert("You are not authorized to use this interface!")
   }
 }
 
 async function PlaceEditValidation(editPlace)
 {
+    if (editPlace.name == null || editPlace.description == null || editPlace.website == null || editPlace.price == null || editPlace.latitude == null || editPlace.longitude == null)
+    {
+        alert("Please fill in all the fields!")
+        return
+    }
     let reader = new FileReader()
     if(document.getElementById("picInput").files[0] != null)
     {
@@ -314,7 +319,7 @@ async function PlaceEditValidation(editPlace)
             {
                 PlacesScreen()
             }
-          };
+        };
     }
     else
     {
@@ -328,6 +333,11 @@ async function PlaceEditValidation(editPlace)
 
 async function PlaceValidation(newPlace)
 {
+    if (newPlace.name == null || document.getElementById("picInput").files[0] == null || newPlace.description == null || newPlace.website == null || newPlace.price == null || newPlace.latitude == null || newPlace.longitude == null)
+    {
+        alert("Please fill in all the fields!")
+        return
+    }
     let reader = new FileReader()
     reader.readAsDataURL(document.getElementById("picInput").files[0])
     reader.onload = async () => {
@@ -341,7 +351,7 @@ async function PlaceValidation(newPlace)
         {
             PlacesScreen()
         }
-      };
+    };
 }
 
 async function ChangeRole(user)
