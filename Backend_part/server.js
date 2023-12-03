@@ -13,12 +13,12 @@ app.use(function (req, res, next) {
     //res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
 
     // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    //res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
 
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'content-type,authorization');
+    //res.setHeader('Access-Control-Allow-Headers', 'content-type,authorization');
 
-    res.setHeader('Access-Control-Allow-Credentials', true)
+    //res.setHeader('Access-Control-Allow-Credentials', true)
 
     // Pass to next layer of middleware
     next();
