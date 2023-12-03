@@ -1,4 +1,4 @@
-const url = "https://tournet-bme.onrender.com"
+const url = "https://tournet-bme.onrender.com:3000"
 let userId = 0
 
 class Place
