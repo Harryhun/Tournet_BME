@@ -84,9 +84,9 @@ async function PlacesScreen() {
     root.render(placesScreenComponents)
 }
 
-async function NewPlaceScreen(placeName = null, domainId = 1)
+async function NewPlaceScreen(placeName = "", domainId = 1)
 {
-    let newPlace = new Place(placeName, domainId, null, null, null, null, null, null)
+    let newPlace = new Place(placeName, domainId, "", "", "", "", "", "")
     let dList = await GetDomains()
     let domainOptionList = []
     for (let i = 0; i < dList.domains.length; i++) {
@@ -303,7 +303,7 @@ async function LoginValidation(userName, password)
 
 async function PlaceEditValidation(editPlace)
 {
-    if (editPlace.name == null || editPlace.description == null || editPlace.website == null || editPlace.price == null || editPlace.latitude == null || editPlace.longitude == null)
+    if (editPlace.name == "" || editPlace.description == "" || editPlace.website == "" || editPlace.price == "" || editPlace.latitude == "" || editPlace.longitude == "")
     {
         alert("Please fill in all the fields!")
         return
@@ -333,7 +333,7 @@ async function PlaceEditValidation(editPlace)
 
 async function PlaceValidation(newPlace)
 {
-    if (newPlace.name == null || document.getElementById("picInput").files[0] == null || newPlace.description == null || newPlace.website == null || newPlace.price == null || newPlace.latitude == null || newPlace.longitude == null)
+    if (newPlace.name == "" || document.getElementById("picInput").files.length == 0 || newPlace.description == "" || newPlace.website == "" || newPlace.price == "" || newPlace.latitude == "" || newPlace.longitude == "")
     {
         alert("Please fill in all the fields!")
         return
