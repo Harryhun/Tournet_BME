@@ -884,14 +884,29 @@ module.exports = function() {
                                 }
                             })
                             .then(queryRes3 => {
-                                db.picture.destroy({
+                                db.picture.findOne({
                                     where: {
                                         id: placeRes.dataValues.pictureId
                                     }
                                 })
-                                .then(queryRes => {
-                                    res.json({
-                                        status: 1 //Sikertelen
+                                .then(foundPic => {
+                                    fs.unlinkSync("./images/places/" + foundPic.dataValues.source)
+                                    db.picture.destroy({
+                                        where: {
+                                            id: placeRes.dataValues.pictureId
+                                        }
+                                    })
+                                    .then(queryRes4 => {
+    
+                                        res.json({
+                                            status: 1 //Sikertelen
+                                        })
+                                    })
+                                    .catch((err) =>
+                                    {
+                                        res.json({
+                                            status: 2 //Sikertelen
+                                        })
                                     })
                                 })
                                 .catch((err) =>

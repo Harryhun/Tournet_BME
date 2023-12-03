@@ -107,7 +107,7 @@ async function NewPlaceScreen(placeName = "", domainId = 1)
             <form>
                 <div>
                     <label for="nameInput">Name:</label>
-                    <input type="text" id="nameInput" placeholder={placeName} onChange={event => newPlace.name = event.target.value}></input>
+                    <input type="text" id="nameInput" placeholder={placeName} onChange={event => {newPlace.name = event.target.value; event.target.placeholder = ""}}></input>
                 </div>
                 <div>
                     <label for="domainInput">Domain:</label>
@@ -243,7 +243,7 @@ async function EditPlaceScreen(place, domainId)
             <form>
                 <div>
                     <label for="nameInput">Name:</label>
-                    <input type="text" id="nameInput" placeholder={place.name} onChange={event => editPlace.name = event.target.value}></input>
+                    <input type="text" id="nameInput" placeholder={place.name} onChange={event => {editPlace.name = event.target.value; event.target.placeholder = ""}}></input>
                 </div>
                 <div>
                     <label for="domainInput">Domain:</label>
@@ -261,17 +261,17 @@ async function EditPlaceScreen(place, domainId)
                 </div>
                 <div>
                     <label for="webInput">Website:</label>
-                    <input type="text" id="webInput" placeholder={place.website} onChange={event => editPlace.website = event.target.value}></input>
+                    <input type="text" id="webInput" placeholder={place.website} onChange={event => {editPlace.website = event.target.value; event.target.placeholder = ""}}></input>
                 </div>
                 <div>
                     <label for="priceInput">Price:</label>
-                    <input type="number" id="priceInput" placeholder={place.price} onChange={event => editPlace.price = event.target.value}></input>
+                    <input type="number" id="priceInput" placeholder={place.price} onChange={event => {editPlace.price = event.target.value; event.target.placeholder = ""}}></input>
                 </div>
                 <div>
                     <label for="latInput">Latitude:</label>
-                    <input type="number" id="latInput" placeholder={place.latitude} onChange={event => editPlace.latitude = event.target.value}></input>
+                    <input type="number" id="latInput" placeholder={place.latitude} onChange={event => {editPlace.latitude = event.target.value; event.target.placeholder = ""}}></input>
                     <label for="longInput">Longitude:</label>
-                    <input type="number" id="longInput" placeholder={place.longitude} onChange={event => editPlace.longitude = event.target.value}></input>
+                    <input type="number" id="longInput" placeholder={place.longitude} onChange={event => {editPlace.longitude = event.target.value; event.target.placeholder = ""}}></input>
                 </div>
             </form>
             <div>
