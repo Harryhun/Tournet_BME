@@ -25,6 +25,7 @@ app.use(function (req, res, next) {
 });
 
 app.post('/login', (req, res) => {
+    console.log("Login request recieved")
     f.login(req, res)
 })
 
