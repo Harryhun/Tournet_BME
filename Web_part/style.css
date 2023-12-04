@@ -1,17 +1,30 @@
+:root
+{
+    --main-fg:rgb(65, 114, 206);
+    --main-bg:rgb(184, 227, 241);
+    --input-bg:rgb(206, 237, 247);
+    --btn-hover:rgb(132, 210, 236);
+}
+
 #navBar
 {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: cornflowerblue;
+    background-color: var(--main-fg);
     top: 0;
     width: 100%;
+    border-radius: 12px;
+    text-align: center;
 }
 
 .navBarItem
 {
-    float: left;
+    display: inline-block;
+    margin: auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
 
 .navBarItem a
@@ -21,9 +34,246 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    font-weight: 500;
 }
 
 .navBarItem a:hover
 {
-    background-color: darkcyan;
+    background-color: var(--btn-hover);
+}
+
+body
+{
+    background-color: var(--main-bg);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1
+{
+    color: var(--main-fg);
+    font-weight: bold;
+    text-align: center;
+}
+
+.screenContainer
+{
+    text-align: center;
+}
+
+.editBtn
+{
+    background:url(./imgs/edit.png) no-repeat;
+    background-size: contain;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+}
+
+.delBtn
+{
+    background:url(./imgs/del.png) no-repeat;
+    background-size: contain;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+}
+
+.placeNames
+{
+    color: var(--main-fg);
+}
+
+.domainNames
+{
+    color: var(--main-fg);
+}
+
+.place
+{
+    border: 5px solid var(--main-fg);
+    border-radius: 12px;
+    margin: 0.5rem;
+    padding-bottom: 1rem;
+    width: 200px;
+    text-align: center;
+    display: inline-block;
+}
+
+.acceptBtn
+{
+    background:url(./imgs/accept.png) no-repeat;
+    background-size: contain;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.25rem;
+}
+
+.declineBtn
+{
+    background:url(./imgs/decline.png) no-repeat;
+    background-size: contain;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.25rem;
+}
+
+.suggestionNames
+{
+    color: var(--main-fg);
+}
+
+.suggestionOwner
+{
+    color: var(--main-fg);
+}
+
+.suggestion
+{
+    border: 5px solid var(--main-fg);
+    border-radius: 12px;
+    margin: 0.5rem;
+    padding-bottom: 1rem;
+    width: 200px;
+    text-align: center;
+    display: inline-block;
+}
+
+.promoteBtn
+{
+    background:url(./imgs/promote.png) no-repeat;
+    background-size: contain;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+}
+
+.demoteBtn
+{
+    background:url(./imgs/demote.png) no-repeat;
+    background-size: contain;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+}
+
+.userNames
+{
+    color: var(--main-fg);
+}
+
+.userRole
+{
+    color: var(--main-fg);
+}
+
+.role
+{
+    border: 5px solid var(--main-fg);
+    border-radius: 12px;
+    margin: 1rem;
+    padding-bottom: 1rem;
+    width: 200px;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formContainer h2
+{
+    color: var(--main-fg);
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+}
+
+.formContainer label
+{
+    padding: 10px;
+    color: var(--main-fg);
+    font-weight: bold;
+}
+
+.formContainer input
+{
+    padding: 5px;
+    color: var(--main-fg);
+    background-color: var(--input-bg);
+    border: 3px solid var(--main-fg);
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.formContainer textarea
+{
+    padding: 5px;
+    color: var(--main-fg);
+    background-color: var(--input-bg);
+    border: 3px solid var(--main-fg);
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.formContainer select
+{
+    padding: 5px;
+    color: var(--main-fg);
+    background-color: var(--input-bg);
+    border: 3px solid var(--main-fg);
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.formContainerInner
+{
+    border: 5px solid var(--main-fg);
+    border-radius: 12px;
+    width:fit-content;
+    margin: auto;
+    margin-top: 8rem;
+    padding-left: 1.9rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 1rem;
+}
+
+form > div
+{
+    padding: 5px
+} 
+
+.submitBtn
+{
+    padding: 10px;
+    margin-top: 15px;
+    border: 3px solid var(--main-fg);
+    border-radius: 12px;
+    background-color: var(--input-bg);
+    color: var(--main-fg);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.formContainer input::file-selector-button
+{
+    border: 2px solid var(--main-fg);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    color: var(--main-fg);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.formContainer ::placeholder
+{
+    color: var(--main-fg);
+}
+
+.submitBtn:hover
+{
+    background-color: var(--btn-hover);
 }

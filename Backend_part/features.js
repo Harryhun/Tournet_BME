@@ -712,41 +712,56 @@ module.exports = function() {
         user = auth(req)
         if(user)
         {
-            db.rating.create({
-                oneStar: 0,
-                twoStar: 0,
-                threeStar: 0,
-                fourStar: 0,
-                fiveStar: 0
+            const buffer = Buffer.from(req.body.picture, "base64")
+            db.picture.findOne({
+                order: [['id', 'DESC']]
             })
-            .then(newRating => {
-                db.picture.create({
-                    source: req.body.picture
+            .then(lastPicId => {
+                picFileName = lastPicId.dataValues.id+1
+                fs.writeFileSync("./images/places/" + picFileName + ".png", buffer)
+                db.rating.create({
+                    oneStar: 0,
+                    twoStar: 0,
+                    threeStar: 0,
+                    fourStar: 0,
+                    fiveStar: 0
                 })
-                .then(newPicture =>{
-                    db.place.create({
-                        name: req.body.name,
-                        ratingId: newRating.dataValues.id,
-                        visitors: 0,
-                        pictureId: newPicture.dataValues.id,
-                        description: req.body.description,
-                        website: req.body.website,
-                        price: req.body.price,
-                        latitude: req.body.latitude,
-                        longitude: req.body.longitude
+                .then(newRating => {
+                    db.picture.create({
+                        source: picFileName + ".png"
                     })
-                    .then(newPlace => {
-                        db.placedomainconnector.create({
-                            domainId: req.body.domainId,
-                            placeId: newPlace.dataValues.id
+                    .then(newPicture =>{
+                        db.place.create({
+                            name: req.body.name,
+                            ratingId: newRating.dataValues.id,
+                            visitors: 0,
+                            pictureId: newPicture.dataValues.id,
+                            description: req.body.description,
+                            website: req.body.website,
+                            price: req.body.price,
+                            latitude: req.body.latitude,
+                            longitude: req.body.longitude
                         })
-                        .then(queryRes => {
-                            res.json({
-                                status: 1, //Sikeres
+                        .then(newPlace => {
+                            db.placedomainconnector.create({
+                                domainId: req.body.domainId,
+                                placeId: newPlace.dataValues.id
+                            })
+                            .then(queryRes => {
+                                res.json({
+                                    status: 1, //Sikeres
+                                })
+                            })
+                            .catch((err) =>
+                            {
+                                res.json({
+                                    status: 2 //Sikertelen
+                                })
                             })
                         })
                         .catch((err) =>
                         {
+                            console.log(err)
                             res.json({
                                 status: 2 //Sikertelen
                             })
@@ -754,7 +769,6 @@ module.exports = function() {
                     })
                     .catch((err) =>
                     {
-                        console.log(err)
                         res.json({
                             status: 2 //Sikertelen
                         })
@@ -769,6 +783,7 @@ module.exports = function() {
             })
             .catch((err) =>
             {
+                console.log(err)
                 res.json({
                     status: 2 //Sikertelen
                 })
@@ -784,27 +799,42 @@ module.exports = function() {
     {
         user = auth(req)
         if(user)
-        {  
-            db.place.update({
-                name: req.body.name,
-                description: req.body.description,
-                website: req.body.website,
-                price: req.body.price,
-                latitude: req.body.latitude,
-                longitude: req.body.longitude,
-            }, {
+        { 
+            db.place.findOne({
                 where: {
-                    id: req.body.id,
-                }
+                    id: req.body.id
+                },
+                include: [db.picture]
             })
-            .then(queryRes => {
-                res.json({
-                    status: 1 //Sikeres
+            .then(placeRes => {
+                const buffer = Buffer.from(req.body.picture, "base64")
+                fs.writeFileSync("./images/places/" + placeRes.dataValues.picture.source, buffer)
+                db.place.update({
+                    name: req.body.name,
+                    description: req.body.description,
+                    website: req.body.website,
+                    price: req.body.price,
+                    latitude: req.body.latitude,
+                    longitude: req.body.longitude,
+                }, {
+                    where: {
+                        id: req.body.id
+                    }
+                })
+                .then(queryRes => {
+                    res.json({
+                        status: 1 //Sikeres
+                    })
+                })
+                .catch((err) =>
+                {
+                    res.json({
+                        status: 2 //Sikertelen
+                    })
                 })
             })
             .catch((err) =>
             {
-                console.log(err)
                 res.json({
                     status: 2 //Sikertelen
                 })
@@ -913,7 +943,10 @@ module.exports = function() {
         if(user)
         {  
             db.suggestion.findAll({
-                include: [db.domain, db.user]
+                include: [db.domain, db.user],
+                where: {
+                    domainId: req.body.domainId
+                }
             })
             .then(queryRes => {
                 let suggestionObjectList = new Array()
@@ -921,7 +954,7 @@ module.exports = function() {
                 {
                     suggestionObjectList[i] = {}
                     suggestionObjectList[i]['id'] = queryRes[i].dataValues.id
-                    suggestionObjectList[i]['domain'] = queryRes[i].dataValues.domain.name
+                    suggestionObjectList[i]['domainId'] = queryRes[i].dataValues.domain.id
                     suggestionObjectList[i]['user'] = queryRes[i].dataValues.user.name
                     suggestionObjectList[i]['suggestion'] = queryRes[i].dataValues.suggestion
                 }
@@ -982,6 +1015,7 @@ module.exports = function() {
                 for(let i = 0; i < queryRes.length; i++)
                 {
                     userObjectList[i] = {}
+                    userObjectList[i]['id'] = queryRes[i].dataValues.id
                     userObjectList[i]['name'] = queryRes[i].dataValues.name
                     userObjectList[i]['password'] = queryRes[i].dataValues.password
                     userObjectList[i]['email'] = queryRes[i].dataValues.email

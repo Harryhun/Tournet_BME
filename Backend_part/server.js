@@ -3,7 +3,7 @@ const app = express()
 const Features = require('./features.js')
 const f = new Features()
 
-app.use(express.json())
+app.use(express.json({limit: '50mb'}))
 
 console.log("Server started!")
 

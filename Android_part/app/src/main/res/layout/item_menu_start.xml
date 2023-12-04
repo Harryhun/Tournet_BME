@@ -91,6 +91,17 @@
             app:layout_constraintBottom_toBottomOf="@id/tvNameText"
             android:backgroundTint="#07000000"
             android:text="@string/nameDefValue" />
+        <TextView
+            android:id="@+id/tvRecommended"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommended"
+            android:textColor="@color/red"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        </TextView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

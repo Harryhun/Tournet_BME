@@ -2,26 +2,27 @@ let roleId = 0
 const container = document.getElementById('root')
 const root = ReactDOM.createRoot(container)
 
-let userName = ""
-let password = ""
-
 function LoginScreen() {
+    let userName = ""
+    let password = ""
     const loginScreenComponents = (
-        <div>
-            <h1>Tournet BME Kezelőfelület</h1>
-            <h2>Bejelentkezés</h2>
+        <div class="formContainer">
+            <h1>Tournet BME Admin Interface</h1>
+            <div class="formContainerInner">
+            <h2>Login</h2>
             <form>
                 <div>
-                    <label for="usernameInput">Felhasználónév:</label>
+                    <label for="usernameInput">Username:</label>
                     <input type="text" id="usernameInput" onChange={event => userName = event.target.value} required></input>
                 </div>
                 <div>
-                    <label for="passwordInput">Jelszó:</label>
+                    <label for="passwordInput">Password:</label>
                     <input type="password" id="passwordInput" onChange={event => password = event.target.value} required></input>
                 </div>
             </form>
             <div>
-                <button id="loginBtn" value="Bejelentkezés" onClick={LoginValidation}>Bejelentkezés</button>
+                <button class="submitBtn" onClick={() => LoginValidation(userName, password)}>Login</button>
+            </div>
             </div>
         </div>
     );
@@ -30,10 +31,10 @@ function LoginScreen() {
 
 function DisplayMenu()
 {
-    let menuItems = ["Helyek", "Új hely", "Ajánlások"]
+    let menuItems = ["Places", "New Place", "Suggestions"]
     if(roleId == 1)
     {
-        menuItems.push("Jogosultságok")
+        menuItems.push("Roles")
     }
     const menuComponents = (
         <ul id="navBar">
@@ -48,68 +49,335 @@ function MenuItemSelected(itemName)
    switch(itemName)
    {
       default: break;
-      case 'Helyek': PlacesScreen(); break;
-      case 'Új hely': NewPlaceScreen(); break;
-      case 'Ajánlások': SuggestionsScreen(); break;
-      case 'Jogosultságok': RolesScreen(); break;
+      case 'Places': PlacesScreen(); break;
+      case 'New Place': NewPlaceScreen(); break;
+      case 'Suggestions': SuggestionsScreen(); break;
+      case 'Roles': RolesScreen(); break;
    }
 }
 
-function PlacesScreen() {
+async function PlacesScreen() {
 
+    let dList = await GetDomains()
+    let objectList = []
+    for (let i = 0; i < dList.domains.length; i++)
+    {
+        objectList.push(<h2 class="domainNames">{dList.domains[i].name}</h2>)
+        let pList = await GetPlaces(dList.domains[i].id)
+        for (let j = 0; j < pList.places.length; j++)
+        {
+            objectList.push(
+                        <div class="place">
+                        <h3 class="placeNames">{pList.places[j].name}</h3>
+                        <button class="editBtn" onClick={() => EditPlaceScreen(pList.places[j], dList.domains[i].id)}></button>
+                        <button class="delBtn" onClick={() => RemovePlace(pList.places[j].id)}></button>
+                        </div>)
+        }
+    }
     const placesScreenComponents = (
-        <div>
+        <div class="screenContainer">
         <DisplayMenu />
-        <p>Itt lesz egy lista ahol megtalálható az összes helyszín domainek szerint kategorizálva. A listaelemek kattinthatók, kattintás után átirányítódunk egy olyan oldalra, ahol az adott helyszínt módosíthatjuk/törölhetjük.</p>
+        <h1>Places</h1>
+        { objectList }
         </div>
     );
     root.render(placesScreenComponents)
 }
 
-function NewPlaceScreen()
+async function NewPlaceScreen(placeName = null, domainId = 1)
 {
+    let newPlace = new Place(null, null, null, null, null, null, null, null)
+    let dList = await GetDomains()
+    let domainOptionList = []
+    for (let i = 0; i < dList.domains.length; i++) {
+        if(dList.domains[i].id == domainId)
+        {
+            domainOptionList.push(<option selected value={dList.domains[i].id}>{dList.domains[i].name}</option>)
+        }
+        else
+        {
+            domainOptionList.push(<option value={dList.domains[i].id}>{dList.domains[i].name}</option>)
+        }
+    }
     const newPlaceScreenComponents = (
-        <div>
+        <div class="formContainer">
         <DisplayMenu />
-        <p>Itt lehet majd hozzáadni új helyszínt az adatbázishoz.</p>
+        <h1>Add New Place</h1>
+        <div class="formContainerInner">
+            <form>
+                <div>
+                    <label for="nameInput">Name:</label>
+                    <input type="text" id="nameInput" placeholder={placeName} onChange={event => newPlace.name = event.target.value} required></input>
+                </div>
+                <div>
+                    <label for="domainInput">Domain:</label>
+                    <select id="domainInput" onChange={event => newPlace.domainId = event.target.value}>
+                        {domainOptionList}
+                    </select>
+                </div>
+                <div>
+                    <label for="picInput">Picture:</label>
+                    <input type="file" id="picInput" accept="image/*" onChange={event => newPlace.picture = event.target.value} required></input>
+                </div>
+                <div>
+                    <label for="descInput">Description:</label>
+                    <textarea id="descInput" onChange={event => newPlace.description = event.target.value} required></textarea>
+                </div>
+                <div>
+                    <label for="webInput">Website:</label>
+                    <input type="text" id="webInput" onChange={event => newPlace.website = event.target.value} required></input>
+                </div>
+                <div>
+                    <label for="priceInput">Price:</label>
+                    <input type="number" id="priceInput" onChange={event => newPlace.price = event.target.value} required></input>
+                </div>
+                <div>
+                    <label for="latInput">Latitude:</label>
+                    <input type="number" id="latInput" onChange={event => newPlace.latitude = event.target.value} required></input>
+                    <label for="longInput">Longitude:</label>
+                    <input type="number" id="longInput" onChange={event => newPlace.longitude = event.target.value} required></input>
+                </div>
+            </form>
+            <div>
+                <button class="submitBtn" onClick={() => PlaceValidation(newPlace)}>Add Place</button>
+            </div>
+        </div>
         </div>
     );
     root.render(newPlaceScreenComponents)
 }
 
-function SuggestionsScreen()
+async function SuggestionsScreen()
 {
+    let dList = await GetDomains()
+    let objectList = []
+    for (let i = 0; i < dList.domains.length; i++)
+    {
+        let sList = await GetSuggestions(dList.domains[i].id)
+        if(sList.suggestions.length != 0)
+        {
+            objectList.push(<h2 class="domainNames">{dList.domains[i].name}</h2>)
+            for (let j = 0; j < sList.suggestions.length; j++)
+            {
+                objectList.push(
+                        <div class="suggestion">
+                            <h3 class="suggestionNames">{sList.suggestions[j].suggestion}</h3>
+                            <p class="suggestionOwner">{sList.suggestions[j].user}</p>
+                            <button class="acceptBtn" onClick={() => AcceptSuggestion(sList.suggestions[j])}></button>
+                            <button class="declineBtn" onClick={() => DeclineSuggestion(sList.suggestions[j].id)}></button>
+                        </div>)
+            }
+        }
+    }
     const suggestionScreenComponents = (
-        <div>
+        <div class="screenContainer">
         <DisplayMenu />
-        <p>Itt lehet majd végignézni és elfogadni/elutasítani az összes felhasználói suggestion-t.</p>
+        <h1>Suggestions</h1>
+        { objectList }
         </div>
     );
     root.render(suggestionScreenComponents)
 }
 
-function RolesScreen()
+async function RolesScreen()
 {
+    let uList = await GetUsers()
+    let userList = []
+    let roles = ["Admin", "Editor", "User"]
+    for (let i = 0; i < uList.users.length; i++)
+    {
+        if(uList.users[i].roleId == 1)
+        {
+            userList.push(<div class="role">
+                <h2 class="userNames">{uList.users[i].name}</h2>
+                <p class="userRole">{roles[uList.users[i].roleId-1]}</p>
+              </div>)
+        }
+        else if(uList.users[i].roleId == 2)
+        {
+            userList.push(<div class="role">
+                <h2 class="userNames">{uList.users[i].name}</h2>
+                <p class="userRole">{roles[uList.users[i].roleId-1]}</p>
+                <button class="demoteBtn" onClick={() => ChangeRole(uList.users[i])}></button>
+              </div>)
+        }
+        else
+        {
+            userList.push(<div class="role">
+                <h2 class="userNames">{uList.users[i].name}</h2>
+                <p class="userRole">{roles[uList.users[i].roleId-1]}</p>
+                <button class="promoteBtn" onClick={() => ChangeRole(uList.users[i])}></button>
+              </div>)
+        }
+    }
     const rolesScreenComponents = (
-        <div>
+        <div class="screenContainer">
         <DisplayMenu />
-        <p>Itt lehet majd kezelni a felhasználók role-jait.</p>
+        <h1>Users</h1>
+        {userList}
         </div>
     );
     root.render(rolesScreenComponents)
 }
 
-async function LoginValidation()
+async function EditPlaceScreen(place, domainId)
+{
+    let editPlace = new Place(place.name, domainId, place.picture, place.description, place.website, place.price, place.latitude, place.longitude, place.id)
+    let dList = await GetDomains()
+    let domainOptionList = []
+    for (let i = 0; i < dList.domains.length; i++) {
+        if(dList.domains[i].id == domainId)
+        {
+            domainOptionList.push(<option selected value={dList.domains[i].id}>{dList.domains[i].name}</option>)
+        }
+        else
+        {
+            domainOptionList.push(<option disabled value={dList.domains[i].id}>{dList.domains[i].name}</option>)
+        }
+    }
+    const editPlaceScreenComponents = (
+        <div class="formContainer">
+        <DisplayMenu />
+        <h1>Edit Place</h1>
+        <div class="formContainerInner">
+            <form>
+                <div>
+                    <label for="nameInput">Name:</label>
+                    <input type="text" id="nameInput" placeholder={place.name} onChange={event => editPlace.name = event.target.value} required></input>
+                </div>
+                <div>
+                    <label for="domainInput">Domain:</label>
+                    <select id="domainInput" onChange={event => editPlace.domainId = event.target.value}>
+                        {domainOptionList}
+                    </select>
+                </div>
+                <div>
+                    <label for="picInput">Picture:</label>
+                    <input type="file" id="picInput" accept="image/*" onChange={event => editPlace.picture = event.target.value}></input>
+                </div>
+                <div>
+                    <label for="descInput">Description:</label>
+                    <textarea id="descInput" onChange={event => editPlace.description = event.target.value} required>{place.description}</textarea>
+                </div>
+                <div>
+                    <label for="webInput">Website:</label>
+                    <input type="text" id="webInput" placeholder={place.website} onChange={event => editPlace.website = event.target.value} required></input>
+                </div>
+                <div>
+                    <label for="priceInput">Price:</label>
+                    <input type="number" id="priceInput" placeholder={place.price} onChange={event => editPlace.price = event.target.value} required></input>
+                </div>
+                <div>
+                    <label for="latInput">Latitude:</label>
+                    <input type="number" id="latInput" placeholder={place.latitude} onChange={event => editPlace.latitude = event.target.value} required></input>
+                    <label for="longInput">Longitude:</label>
+                    <input type="number" id="longInput" placeholder={place.longitude} onChange={event => editPlace.longitude = event.target.value} required></input>
+                </div>
+            </form>
+            <div>
+                <button class="submitBtn" onClick={() => PlaceEditValidation(editPlace)}>Edit Place</button>
+            </div>
+        </div>
+        </div>
+    );
+    root.render(editPlaceScreenComponents)
+}
+
+async function LoginValidation(userName, password)
 {
   const loginRes = await Login(userName, password)
-  if(loginRes.status == 1 && loginRes.roleId != 3)
+  if(loginRes.status == 1 && loginRes.roleId < 3)
   {
     roleId = loginRes.roleId
     PlacesScreen()
   }
   //TODO nincs ilyen felh / user a felhasználó
-  let placeAdd = new Place("új hely up2", 2 ,"ujpic.png", "ez egy új hely IGEN", "https://www.ujhely.hu", 50000, 50.01, 0.01)
-  console.log(DeletePlace(6))
+}
+
+async function PlaceEditValidation(editPlace)
+{
+    let reader = new FileReader()
+    if(document.getElementById("picInput").files[0] != null)
+    {
+        reader.readAsDataURL(document.getElementById("picInput").files[0])
+        reader.onload = async () => {
+            editPlace.picture = reader.result.split(',')[1]
+            const editRes = await EditPlace(editPlace)
+            if(editRes.status == 1)
+            {
+                PlacesScreen()
+            }
+          };
+    }
+    else
+    {
+        const editRes = await EditPlace(editPlace)
+        if(editRes.status == 1)
+        {
+            PlacesScreen()
+        }
+    }
+}
+
+async function PlaceValidation(newPlace)
+{
+    let reader = new FileReader()
+    reader.readAsDataURL(document.getElementById("picInput").files[0])
+    reader.onload = async () => {
+        newPlace.picture = reader.result.split(',')[1]
+        if(newPlace.domainId == null)
+        {
+            newPlace.domainId = 1
+        }
+        const addRes = await AddPlace(newPlace)
+        if(addRes.status == 1)
+        {
+            PlacesScreen()
+        }
+      };
+}
+
+async function ChangeRole(user)
+{
+    let roleRes 
+    if(user.roleId == 2)
+    {
+        roleRes = await SetUserRole(user.id, 3)
+    }
+    else if (user.roleId == 3)
+    {
+        roleRes = await SetUserRole(user.id, 2)
+    }
+    if(roleRes.status == 1)
+    {
+        RolesScreen()
+    }
+}
+async function DeclineSuggestion(suggId)
+{
+    const suggRes = await DeleteSuggestion(suggId)
+    if(suggRes.status == 1)
+    {
+        SuggestionsScreen()
+    }
+}
+
+async function AcceptSuggestion(suggestion)
+{
+    const suggRes = await DeleteSuggestion(suggestion.id)
+    if(suggRes.status == 1)
+    {
+        NewPlaceScreen(suggestion.suggestion, suggestion.domainId)
+    }
+}
+
+async function RemovePlace(placeId)
+{
+    const placeRes = await DeletePlace(placeId)
+    if(placeRes.status == 1)
+    {
+        PlacesScreen()
+    }
 }
 
 root.render(<LoginScreen />)
