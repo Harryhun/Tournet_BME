@@ -13,7 +13,10 @@ class AndroidFrontendConnector {
     private val client = OkHttpClient()
     private val url = "http://10.0.2.2:3000"
     private val json_media = "application/json".toMediaType()
-    private var userId: Int = -1
+
+    companion object{
+        var userId: Int = -1
+    }
 
     private fun POST(commandName: String, data: String): JSONObject {
         var result: String? = "0"

@@ -25,6 +25,7 @@ class StartMenuAdapter(private val listener: StartMenuItemClickListener) :
         holder.binding.ivIcon.setOnClickListener{
             listener.onItemSelected(startMenuItem)
         }
+        if(startMenuItem.recommended) holder.binding.tvRecommended.alpha = 1F
 
     }
     private fun getImageResource(item: StartMenuItem): Bitmap {

@@ -138,7 +138,7 @@
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@id/glImageStart"
         app:layout_constraintTop_toBottomOf="@id/tvPriceText"
-        app:layout_constraintBottom_toTopOf="@id/glDescTop"/>
+        app:layout_constraintBottom_toTopOf="@id/tvVisitNumberText"/>
 
     <TextView
         android:id="@+id/tvCurrentAvgRating"
@@ -160,22 +160,66 @@
         tools:text="@string/spotDescription"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnVisited"
+        app:layout_constraintBottom_toTopOf="@+id/tbVisited"
         app:layout_constraintTop_toBottomOf="@id/glDescTop"
         app:layout_constraintStart_toStartOf="@id/glImageStart"
         app:layout_constraintEnd_toEndOf="@id/glImageEnd"/>
 
-    <Button
-        android:id="@+id/btnVisited"
+    <TextView
+        android:id="@+id/tvVisitNumberText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visitNumberText"
+        android:textSize="25sp"
+        android:fontFamily="@font/font_login"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/glDescTop"
+        app:layout_constraintStart_toStartOf="@+id/glImageStart">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tvVisitedNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visitNumber"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tvVisitNumberText"
+        app:layout_constraintLeft_toLeftOf="@+id/glVertical"
+        app:layout_constraintRight_toRightOf="parent">
+    </TextView>
+
+    <ToggleButton
+        android:id="@+id/tbVisited"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/visited"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/glVerticalCenter"
+        android:textOff="@string/notVisited"
+        android:textOn="@string/visited"
         android:textColor="@color/black"
         android:backgroundTint="@color/lightGreen"
         />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/glVerticalCenter"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <Button
+        android:id="@+id/btRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btRateText"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/lightGreen"
+        app:layout_constraintStart_toStartOf="@id/glVerticalCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
