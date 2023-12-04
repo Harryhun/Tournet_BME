@@ -84,6 +84,7 @@ class AndroidFrontendConnector {
 
     public fun SendSuggestion(domainId: Int, suggestionName: String): JSONObject {
         var suggestionInfo = JSONObject()
+        visitInfo.put("userId", userId)
         suggestionInfo.put("domainId", domainId)
         suggestionInfo.put("suggestionName", suggestionName)
         return POST("/recieveSuggestion", suggestionInfo.toString())
