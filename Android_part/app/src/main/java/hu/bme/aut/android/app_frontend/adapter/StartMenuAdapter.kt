@@ -22,7 +22,7 @@ class StartMenuAdapter(private val listener: StartMenuItemClickListener) :
         holder.binding.ivIcon.setImageBitmap(getImageResource(startMenuItem))
         holder.binding.tvName.text = startMenuItem.name
         holder.binding.tvRating.text = startMenuItem.rating
-        holder.binding.ivIcon.setOnClickListener{
+        holder.binding.cvMenuItem.setOnClickListener{
             listener.onItemSelected(startMenuItem)
         }
         if(startMenuItem.recommended) holder.binding.tvRecommended.alpha = 1F
