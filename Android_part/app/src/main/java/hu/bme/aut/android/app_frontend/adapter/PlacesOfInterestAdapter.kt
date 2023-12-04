@@ -45,12 +45,24 @@ class PlacesOfInterestAdapter(private val listener: PlacesOfInterestItemClickLis
         items.addAll(regions)
         notifyDataSetChanged()
     }
+    fun delete(item: PlacesOfInterestItem){
+        items.remove(item)
+        notifyDataSetChanged()
+    }
+
+    fun deleteAll(){
+        items.clear()
+        notifyDataSetChanged()
+    }
 
     override fun getItemCount(): Int = items.size
 
     interface PlacesOfInterestItemClickListener {
         fun onItemChanged(item: PlacesOfInterestItem)
         fun onItemAdded(item: PlacesOfInterestItem)
+        fun onDelete(item: PlacesOfInterestItem)
+
+        fun onDeleteAll()
 
         fun onItemSelected(item: PlacesOfInterestItem)
     }

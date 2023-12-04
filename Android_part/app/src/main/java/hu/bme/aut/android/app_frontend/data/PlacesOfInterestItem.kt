@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "placesOfInterestItem")
 data class PlacesOfInterestItem(
     @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) var id: Long? = null,
+    @ColumnInfo(name = "itemId") var itemId: Int,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "ratingOneStar") var ratingOneStar: Int,
     @ColumnInfo(name = "ratingTwoStar") var ratingTwoStar: Int,
@@ -18,4 +19,5 @@ data class PlacesOfInterestItem(
     @ColumnInfo(name = "description") var description: String,
     @ColumnInfo(name = "website") var webSite: String,
     @ColumnInfo(name = "estimated_price") var estimatedPrice: Int,
+    @ColumnInfo(name = "visited") var visited: Boolean,
     )

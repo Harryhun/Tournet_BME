@@ -11,4 +11,5 @@ data class StartMenuItem(
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "rating") var rating: String,
     @ColumnInfo(name = "resPath") var resPath: String,
+    @ColumnInfo(name = "recommended") var recommended: Boolean,
 )

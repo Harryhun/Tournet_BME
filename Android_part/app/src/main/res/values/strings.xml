@@ -50,4 +50,23 @@
     <string name="simpleuser">simpleUser</string>
     <string name="savechanges">SaveChanges</string>
     <string name="back">Back</string>
+    <string name="recommended">Recommended!</string>
+    <string name="notVisited">Not visited yet</string>
+    <string name="visitNumberText">Visitors:</string>
+    <string name="visitNumber">0</string>
+    <string name="btRateText">Rate this place</string>
+    <string name="rate">Rate this place</string>
+    <string name="button_ok">Ok</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="details">Detailed rating:</string>
+    <string name="oneStarCount">0</string>
+    <string name="twoStarCount">0</string>
+    <string name="threeStarCount">0</string>
+    <string name="fourStarCount">0</string>
+    <string name="fiveStarCount">0</string>
+    <string name="ownRating">Own rating:</string>
+    <string name="ownStarCount">5</string>
+    <string name="suggest">Make suggestion</string>
+    <string name="suggestInstruction">Plase enter the name of a location you wish to see in out application:</string>
+    <string name="enterLocationName">Type a name of a location</string>
 </resources>

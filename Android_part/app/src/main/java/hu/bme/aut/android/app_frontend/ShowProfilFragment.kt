@@ -1,11 +1,13 @@
 package hu.bme.aut.android.app_frontend
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import hu.bme.aut.android.app_frontend.apiconnector.AndroidFrontendConnector
 
 import hu.bme.aut.android.app_frontend.databinding.FragmentShowProfilBinding
@@ -13,13 +15,12 @@ import hu.bme.aut.android.app_frontend.databinding.FragmentShowProfilBinding
 class ShowProfilFragment: Fragment(){
     private lateinit var binding: FragmentShowProfilBinding
     private var connector = AndroidFrontendConnector()
-
+    private val args: ShowProfilFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding=FragmentShowProfilBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,17 +41,12 @@ class ShowProfilFragment: Fragment(){
             findNavController().navigate(R.id.action_showProfilFragment_to_startMenuFragment)
         }
         binding.btnBackToBeforeFragment.setOnClickListener {
-            val id=findNavController().previousBackStackEntry!!.id
-
-            when(id){
-                R.id.frPlacesOfInterest.toString() -> findNavController().navigate(R.id.action_showProfilFragment_to_placesOfInterestFragment)
-                R.id.frStartMenu.toString() -> findNavController().navigate(R.id.action_showProfilFragment_to_startMenuFragment)
+            when(args.prevFragment){
+                "StartMenu" -> findNavController().navigate(R.id.action_showProfilFragment_to_startMenuFragment)
+                "Places" -> findNavController().navigate(R.id.action_showProfilFragment_to_placesOfInterestFragment)
             }
-
         }
 
     }
-
-
 
 }
