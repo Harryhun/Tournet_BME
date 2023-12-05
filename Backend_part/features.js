@@ -8,7 +8,6 @@ let fs = require('fs')
 const auth = require('basic-auth')
 
 let initModels = require("./models/init-models")
-const placedomainconnector = require('./models/placedomainconnector')
 const db = initModels(databaseConn)
 db.rating.hasOne(db.place)
 db.place.belongsTo(db.rating)
