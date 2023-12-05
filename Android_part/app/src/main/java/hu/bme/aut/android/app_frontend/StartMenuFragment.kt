@@ -46,11 +46,12 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
         binding.toolbar.setOnMenuItemClickListener{
             when(it.itemId){
                 R.id.menu_profile -> {
-                    findNavController().navigate(R.id.action_startMenuFragment_to_showProfilFragment)
+                    val action = StartMenuFragmentDirections.actionStartMenuFragmentToShowProfilFragment("StartMenu")
+                    findNavController().navigate(action)
                     true
                 }
                 R.id.menu_exit -> {
-                    findNavController().navigate(R.id.action_startMenuFragment_to_placesOfInterestFragment)
+                    findNavController().navigate(R.id.action_startMenuFragment_to_loginFragment)
                     true
                 }
                 else -> true
@@ -68,11 +69,15 @@ class StartMenuFragment : Fragment(), StartMenuAdapter.StartMenuItemClickListene
         thread {
             val items = database.startMenuItemDao().getAll()
 
+            val recommendedId = connector.GetRecommendedDomain().getInt("domainId")
+
             val data = connector.GetDomains()
             val jsonArray = data.getJSONArray("domains")
             for(i in 0 until jsonArray.length()){
                 val obj = jsonArray.getJSONObject(i)
-                val newItem = StartMenuItem(null, obj.getInt("id"), obj.getString("name"), obj.getString("rating") , obj.getString("picture"))
+                val newItem = StartMenuItem(null, obj.getInt("id"), obj.getString("name"), obj.getString("rating"),
+                    obj.getString("picture"), false)
+                if(newItem.domainId == recommendedId) newItem.recommended = true
                 items.add(newItem)
             }
             requireActivity().runOnUiThread{

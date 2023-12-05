@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +12,10 @@ import hu.bme.aut.android.app_frontend.adapter.PlacesOfInterestAdapter
 import hu.bme.aut.android.app_frontend.apiconnector.AndroidFrontendConnector
 import hu.bme.aut.android.app_frontend.data.PlacesOfInterestItem
 import hu.bme.aut.android.app_frontend.data.PlacesOfInterestListDatabase
-import hu.bme.aut.android.app_frontend.data.StartMenuItem
 import hu.bme.aut.android.app_frontend.databinding.FragmentPlacesOfInterestBinding
 import kotlin.concurrent.thread
 
-class PlacesOfInterestFragment : Fragment(), PlacesOfInterestAdapter.PlacesOfInterestItemClickListener {
+class PlacesOfInterestFragment : Fragment(), PlacesOfInterestAdapter.PlacesOfInterestItemClickListener, SuggestDialogFragment.SuggestDialogListener {
     private lateinit var binding: FragmentPlacesOfInterestBinding
     private lateinit var database: PlacesOfInterestListDatabase
     private lateinit var adapter: PlacesOfInterestAdapter
@@ -44,21 +42,24 @@ class PlacesOfInterestFragment : Fragment(), PlacesOfInterestAdapter.PlacesOfInt
         binding.toolbar.setOnMenuItemClickListener{
             when(it.itemId){
                 R.id.menu_profile -> {
-                    findNavController().navigate(R.id.action_placesOfInterestFragment_to_showProfilFragment)
+                    val action = PlacesOfInterestFragmentDirections.actionPlacesOfInterestFragmentToShowProfilFragment("Places")
+                    findNavController().navigate(action)
+                    true
+                }
+                R.id.menu_suggest -> {
+                    SuggestDialogFragment(this).show(
+                        childFragmentManager,
+                        SuggestDialogFragment.TAG
+                    )
                     true
                 }
                 R.id.menu_exit -> {
                     findNavController().navigate(R.id.action_placesOfInterestFragment_to_loginFragment)
-
-
                     true
                 }
                 else -> true
             }
         }
-
-
-
     }
 
     private fun initRecyclerView() {
@@ -75,12 +76,31 @@ class PlacesOfInterestFragment : Fragment(), PlacesOfInterestAdapter.PlacesOfInt
             for(i in 0 until jsonArray.length()){
                 val obj = jsonArray.getJSONObject(i)
                 val detailedRating = obj.getJSONObject("rating")
-                Log.d("RATING", detailedRating.toString())
-                val newItem = PlacesOfInterestItem(null, obj.getString("name"), detailedRating.getInt("oneStar"), detailedRating.getInt("twoStar"),
-                    detailedRating.getInt("threeStar"), detailedRating.getInt("fourStar"), detailedRating.getInt("fiveStar"), obj.getInt("visitors"),
-                    obj.getString("picture"), obj.getString("description"), obj.getString("website"), obj.getInt("price"))
-                items.add(newItem)
+                val userRating = connector.GetUserRating(obj.getInt("id"))
+                Log.d("RATING", userRating.toString())
+                var visited = false
+                if(userRating.getInt("status") != 0) visited = true
+                Log.d("VISITED", visited.toString())
+                val newItem = PlacesOfInterestItem(null, obj.getInt("id") ,obj.getString("name"), detailedRating.getInt("oneStar"),
+                    detailedRating.getInt("twoStar"), detailedRating.getInt("threeStar"), detailedRating.getInt("fourStar"),
+                    detailedRating.getInt("fiveStar"), obj.getInt("visitors"), obj.getString("picture"), obj.getString("description"),
+                    obj.getString("website"), obj.getInt("price"), visited)
+                val predicate: (PlacesOfInterestItem) -> Boolean = { it.name == newItem.name }
+                if(items.any(predicate)){
+                    for(item in items){
+                        if(item.name == newItem.name){
+                            onDelete(item)
+                            items.remove(item)
+                            onItemAdded(newItem)
+                            items.add(newItem)
+                            break
+                        }
+                    }
+                }else{
+                    items.add(newItem)
+                }
             }
+
             requireActivity().runOnUiThread{
                 adapter.update(items)
             }
@@ -89,7 +109,7 @@ class PlacesOfInterestFragment : Fragment(), PlacesOfInterestAdapter.PlacesOfInt
     override fun onItemChanged(item: PlacesOfInterestItem) {
         thread {
             database.placesOfInterestItemDao().update(item)
-            Log.d("PlaceInterestActivity", "PlaceInterestActivity update was successful")
+            Log.d("PlacesOfInterestFragment", "PlacesOfInterestFragment update was successful")
         }
     }
 
@@ -103,14 +123,38 @@ class PlacesOfInterestFragment : Fragment(), PlacesOfInterestAdapter.PlacesOfInt
         }
     }
 
+    override fun onDelete(item: PlacesOfInterestItem) {
+        thread {
+            database.placesOfInterestItemDao().deleteItem(item)
+            requireActivity().runOnUiThread{
+                adapter.delete(item)
+            }
+        }
+    }
+
+    override fun onDeleteAll() {
+        thread {
+            val items = database.placesOfInterestItemDao().getAll()
+            for(item in items){
+                database.placesOfInterestItemDao().deleteItem(item)
+            }
+            requireActivity().runOnUiThread{
+                adapter.deleteAll()
+            }
+        }
+    }
+
     override fun onItemSelected(item: PlacesOfInterestItem) {
         val action = PlacesOfInterestFragmentDirections.actionPlacesOfInterestFragmentToTouristSpotFragment(name = item.name, resPath = item.resPath,
-            website = item.webSite, price = item.estimatedPrice.toString(), avgRating = calculateRating(item), description = item.description)
+            website = item.webSite, price = item.estimatedPrice.toString(), description = item.description,
+            visitedNumber = item.visitors.toString(), id = item.itemId, visited = item.visited, ratingOneStar = item.ratingOneStar,
+            ratingTwoStar = item.ratingTwoStar, ratingThreeStar = item.ratingThreeStar, ratingFourStar = item.ratingFourStar,
+            ratingFiveStar = item.ratingFiveStar)
         findNavController().navigate(action)
     }
 
-    private fun calculateRating(item: PlacesOfInterestItem): String{
-        return ((item.ratingOneStar + item.ratingTwoStar*2 + item.ratingThreeStar*3 + item.ratingFourStar*4 + item.ratingFiveStar*5).toDouble()/
-                (item.ratingOneStar + item.ratingTwoStar + item.ratingThreeStar + item.ratingFourStar + item.ratingFiveStar)).toString()
+    override fun onSuggestionMade(name: String) {
+        val info = connector.SendSuggestion(args.domainId, name)
+        Log.d("STATUSOFSUGGESTION", info.toString())
     }
 }

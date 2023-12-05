@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_blue2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".RatingDialogFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/glHorizontal"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"/>
+
+    <TextView
+        android:id="@+id/tvOwnRatingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ownRating"
+        android:fontFamily="@font/font_login"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </TextView>
+
+    <RatingBar
+        android:id="@+id/rbOwnRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rating="5"
+        android:stepSize="1.0"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/glHorizontal">
+    </RatingBar>
+
+
+    <TextView
+        android:id="@+id/tvDetailsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/details"
+        android:fontFamily="@font/font_login"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/glHorizontal">
+    </TextView>
+
+    <RatingBar
+        android:id="@+id/rbOneStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:rating="1"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDetailsText">
+    </RatingBar>
+
+     <TextView
+         android:id="@+id/tvOneStar"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/oneStarCount"
+         android:textSize="25sp"
+         android:textColor="@color/black"
+         app:layout_constraintBottom_toBottomOf="@id/rbOneStar"
+         app:layout_constraintTop_toTopOf="@id/rbOneStar"
+         app:layout_constraintStart_toEndOf="@id/rbOneStar"
+         app:layout_constraintEnd_toEndOf="parent">
+     </TextView>
+
+    <RatingBar
+        android:id="@+id/rbTwoStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:rating="2"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rbOneStar">
+    </RatingBar>
+
+    <TextView
+        android:id="@+id/tvTwoStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/twoStarCount"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/rbTwoStar"
+        app:layout_constraintTop_toTopOf="@id/rbTwoStar"
+        app:layout_constraintStart_toEndOf="@id/rbTwoStar"
+        app:layout_constraintEnd_toEndOf="parent">
+    </TextView>
+
+    <RatingBar
+        android:id="@+id/rbThreeStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:rating="3"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rbTwoStar">
+    </RatingBar>
+
+    <TextView
+        android:id="@+id/tvThreeStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/threeStarCount"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/rbThreeStar"
+        app:layout_constraintTop_toTopOf="@id/rbThreeStar"
+        app:layout_constraintStart_toEndOf="@id/rbThreeStar"
+        app:layout_constraintEnd_toEndOf="parent">
+    </TextView>
+
+    <RatingBar
+        android:id="@+id/rbFourStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:rating="4"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rbThreeStar">
+    </RatingBar>
+
+    <TextView
+        android:id="@+id/tvFourStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fourStarCount"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/rbFourStar"
+        app:layout_constraintTop_toTopOf="@id/rbFourStar"
+        app:layout_constraintStart_toEndOf="@id/rbFourStar"
+        app:layout_constraintEnd_toEndOf="parent">
+    </TextView>
+
+    <RatingBar
+        android:id="@+id/rbFiveStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:rating="5"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rbFourStar">
+    </RatingBar>
+
+    <TextView
+        android:id="@+id/tvFiveStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fiveStarCount"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/rbFiveStar"
+        app:layout_constraintTop_toTopOf="@id/rbFiveStar"
+        app:layout_constraintStart_toEndOf="@id/rbFiveStar"
+        app:layout_constraintEnd_toEndOf="parent">
+    </TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

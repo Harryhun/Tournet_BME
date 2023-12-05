@@ -12,11 +12,11 @@ interface PlacesOfInterestDao {
     fun getAll(): MutableList<PlacesOfInterestItem>
 
     @Insert
-    fun insert(shoppingItems: PlacesOfInterestItem): Long
+    fun insert(placesOfInterestItem: PlacesOfInterestItem): Long
 
     @Update
-    fun update(shoppingItem: PlacesOfInterestItem)
+    fun update(placesOfInterestItem: PlacesOfInterestItem)
 
     @Delete
-    fun deleteItem(shoppingItem: PlacesOfInterestItem)
+    fun deleteItem(placesOfInterestItem: PlacesOfInterestItem)
 }

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [PlacesOfInterestItem::class], version = 2)
+@Database(entities = [PlacesOfInterestItem::class], version = 4)
 abstract class PlacesOfInterestListDatabase : RoomDatabase(){
     abstract fun placesOfInterestItemDao() : PlacesOfInterestDao
     companion object{

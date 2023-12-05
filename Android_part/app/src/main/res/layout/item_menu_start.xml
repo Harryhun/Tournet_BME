@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="110dp"
+    android:id="@+id/cvMenuItem"
     app:layout_constraintHorizontal_bias="0.5"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
@@ -14,10 +15,8 @@
     android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
         android:background="@drawable/background_blue4"
         android:padding="4dp">
 
@@ -31,7 +30,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"
             android:src="@drawable/baranya" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -91,6 +89,17 @@
             app:layout_constraintBottom_toBottomOf="@id/tvNameText"
             android:backgroundTint="#07000000"
             android:text="@string/nameDefValue" />
+        <TextView
+            android:id="@+id/tvRecommended"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommended"
+            android:textColor="@color/red"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        </TextView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

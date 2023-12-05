@@ -60,12 +60,40 @@
             app:argType="string"
             android:defaultValue="500" />
         <argument
-            android:name="avgRating"
-            app:argType="string"
-            android:defaultValue="5" />
-        <argument
             android:name="description"
             app:argType="string" />
+        <argument
+            android:name="visitedNumber"
+            app:argType="string"
+            android:defaultValue="0" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="visited"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="ratingOneStar"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="ratingTwoStar"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="ratingThreeStar"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="ratingFourStar"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="ratingFiveStar"
+            app:argType="integer"
+            android:defaultValue="0" />
+
     </fragment>
     <fragment
         android:id="@+id/placesOfInterestFragment"
@@ -97,6 +125,9 @@
         <action
             android:id="@+id/action_startMenuFragment_to_showProfilFragment"
             app:destination="@id/showProfilFragment" />
+        <action
+            android:id="@+id/action_startMenuFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -111,6 +142,10 @@
         <action
             android:id="@+id/action_showProfilFragment_to_placesOfInterestFragment"
             app:destination="@id/placesOfInterestFragment" />
+        <argument
+            android:name="prevFragment"
+            app:argType="string"
+            android:defaultValue="StartMenu" />
 
     </fragment>
 
