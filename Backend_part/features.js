@@ -8,7 +8,6 @@ let fs = require('fs')
 const auth = require('basic-auth')
 
 let initModels = require("./models/init-models")
-const placedomainconnector = require('./models/placedomainconnector')
 const db = initModels(databaseConn)
 db.rating.hasOne(db.place)
 db.place.belongsTo(db.rating)
@@ -202,12 +201,14 @@ module.exports = function() {
             })
             .then(queryRes => {
                 let sumRating = 0
+                let sumDevisor = 0
                 let rating = 0
                 let divisor = 0
                 let domainObjectList = new Array()
                 for(let i = 0; i < queryRes.length; i++)
                 {
                     sumRating = 0 
+                    sumDevisor = 0
                     domainObjectList[i] = {}
                     domainObjectList[i]["id"] = queryRes[i].dataValues.id
                     domainObjectList[i]['name'] = queryRes[i].dataValues.name
@@ -245,8 +246,12 @@ module.exports = function() {
                             rating /= divisor
                         }
                         sumRating += rating
+                        if(rating != 0)
+                        {
+                            sumDevisor++
+                        }
                     }
-                    domainObjectList[i]['rating'] = sumRating/queryRes[i].dataValues.places.length
+                    domainObjectList[i]['rating'] = sumRating/sumDevisor
                     domainObjectList[i]['picture'] = Buffer.from(fs.readFileSync('./images/domains/'+queryRes[i].dataValues.picture.source)).toString('base64')
                 }
                 res.json({
@@ -647,6 +652,7 @@ module.exports = function() {
                 else
                 {
                     let sumRating = 0
+                    let sumDevisor = 0
                     let rating = 0
                     let divisor = 0
                     for (let j = 0; j < queryRes.dataValues.places.length; j++) 
@@ -683,13 +689,17 @@ module.exports = function() {
                             rating /= divisor
                         }
                         sumRating += rating
+                        if(rating != 0)
+                        {
+                            sumDevisor++
+                        }
                     }
                     res.json({
                         status: 1, //Sikeres
                         domainId: queryRes.dataValues.id,
                         name: queryRes.dataValues.name,
-                        rating: sumRating/queryRes.dataValues.places.length,
-                        picture: Buffer.from(fs.readFileSync('./images/places/'+queryRes.dataValues.picture.source)).toString('base64')
+                        rating: sumRating/sumDevisor,
+                        picture: Buffer.from(fs.readFileSync('./images/domains/'+queryRes.dataValues.picture.source)).toString('base64')
                     })
                 }
             })
